@@ -1,11 +1,10 @@
 %! Author = Matthew
 %! Date = 16.05.2022
 \documentclass[12pt,aspectratio=169,svgnames]{beamer}
-
-\usepackage{modules/cgs}
-
-\usetikzlibrary{calc}
-
+\usepackage{cgs}
+\usepackage{algorithmicx}
+\usepackage{angles, quotes, intersections}
+\DeclareMathOperator{\sign}{sign}
 \begin{document} \maketitle
 
 \begin{frame}{Содержание}
@@ -26,7 +25,10 @@
 		\item У них нет общих $x$ и $y$ координат.
 	\end{itemize}
 
-	В совокупности это верно почти всегда.
+	В совокупности это верно почти всегда.\\
+
+	Сейчас мы рассмотрим несколько простых задач вычислительной геометрии, некоторые из них понадобятся нам позднее, как
+	элементарные позадачи более сложных задач.
 
 \end{frame}
 
@@ -48,30 +50,103 @@
 
 \end{frame}
 
+\begin{frame}{Расстояние от точки до прямой}
+
+	Если прямая задана, как  $\ell\colon ax + by + c = 0$, то расстояние от точки $M(x_0, y_0)$ до неё можно рассчитать, как
+	\[ d(M, \ell) = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}} \]
+
+	\begin{center}
+	\begin{tikzpicture}[scale = 0.8]
+	\coordinate[label=left:$M$] (M) at (3,5);
+	\draw[fill4, fill = fill4] (3,5) circle (0.07);
+	\draw[fill4, fill = fill4] (4,1) circle (0.07);
+	\draw[fill4, thick] (0, 0)--(8, 2) node[left, right = 0.05]{$\ell$};
+	\draw[fill4, thick] (3, 5)--(4, 1);
+	\end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}{Центр описанной окружности}
+
+	\begin{task}
+
+		Дана тройка точек $a, b, c$. Требуется найти центр описанной окружности $\triangle abc$.
+
+	\end{task}
+
+	\begin{center}
+		\begin{tikzpicture}[sty/.style={fill = fill4, circle, inner sep=2pt}]
+		\coordinate[sty, label=left:$a$] (A) at (0,0); \coordinate[sty,label=right:$b$](B) at (3,1); \coordinate[sty,label=above:$c$](C) at (1,3);
+		\draw[thick, fill4] (A)--(B)--(C)--(A);
+		\coordinate (T) at ($(A)!1!60:(B)$); \draw [name path=h1, dashed]
+		(T)--($(A)!(T)!(B)$); \coordinate (T) at ($(B)!1!60:(C)$);
+		\draw [name path=h2, dashed] (T)--($(B)!(T)!(C)$); \draw [name intersections=
+		{of=h1 and h2, by=O}]; \node[sty, label=right:$O$] at (O) {};
+		\draw[thick, fill5] (O) let \p1=($(O)-(A)$)
+		in circle ({veclen(\x1,\y1)});
+	   \end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}{Центр описанной окружности}
+
+	\begin{enumerate}
+
+	    \item Ищем серединные перепендикуляры к $[ac]$ и $[bc]$, как прямые $p_1$ и $p_2$.\\
+			  Если $\ell_1\colon y = a_1x + b_1$, а $\ell_2\colon y = a_2 x + b_2$, то $\ell_1 \perp \ell_2 \Leftrightarrow a_1 \cdot a_2 = -1$.\\
+			  Находим серединный перпендикуляр к стороне, как прямую, проходящую через середину стороны и перпендикулярную ей.
+
+		\item Ищем их пересечение, как решение линейной системы: \\
+			$p_1\colon y = \alpha_1 x + \beta, \ p_2\colon y = \alpha_2 x + \beta_2$.\\
+			$\begin{cases} y = \alpha_1 x + \beta_1 \\ y = \alpha_2 x + \beta_2 \end{cases}$
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Смежные задачи}
+
+	Ясно, что очень большое количество задач можно решить совершенно аналогичным образом, например, задачи
+	нахождения
+
+	\begin{itemize}
+
+		\item инцентра.
+
+		\item ортоцентра.
+
+		\item  барицентра.
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Угол между векторами}
 
 	Рассмотрим вектора $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$.
 	\[ \langle \vec{a}, \vec{b} \rangle = x_1 x_2 + y_1 y_2 = |\vec{a}||\vec{b}| \cos{\angle{(\vec{a}, \vec{b})}} = \sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2} \cos{\angle(\vec{a}, \vec{b})}\]
-
 	Значит, мы знаем, как найти угол между векторами $\vec{a}$ и $\vec{b}$:
-	\[ \angle(\vec{a}, \vec{b}) = \arccos\bigg(\frac{x_1 y_1 + x_2 y_2}{\sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2}}\bigg)\]
+	\[ \angle(\vec{a}, \vec{b}) = \arccos\bigg(\frac{x_1 y_1 + x_2 y_2}{\sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2}}\bigg) \]
 
 \end{frame}
 
 \begin{frame}{Косое произведение}
+
 	\begin{defn}
+
 		\alert{Косым проивезеднием} векторов $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$ на плоскости будем называть
 		\[ \vec{a} \wedge \vec{b} =  \begin{vmatrix} x_1 & y_2 \\ x_2 & y_2  \end{vmatrix} = x_1 y_2 - x_2 y_1\]
+
 	\end{defn}
 
 	Покажем, что $\vec{a} \wedge \vec{b} = |\vec{a}| |\vec{b}| \sin{\angle(\vec{a}, \vec{b})}$, где $\angle(\vec{a}, \vec{b})$ -- угол
 	вращения против часовой стрелки от $\vec{a}$ к $\vec{b}$.
+
 \end{frame}
 
 \begin{frame}{Эквивалентность определений}
 
-	В самом деле, $\cos(\angle(\vec{a}, \vec{b})) = |x_1 x_2 + y_1 y_2| / (\sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2})$.
-	\begin{multline*} \sin(\angle(\vec{a},\vec{b})) = \sqrt{1 - \cos^2({\angle(\vec{a}, \vec{b})}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline*}
+	В самом деле, $\cos(\angle(\vec{a}, \vec{b})) = x_1 x_2 + y_1 y_2 / (\sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2})$.
+	\begin{multline*} \sin(\angle(\vec{a},\vec{b})) = \sqrt{1 - \cos^2({\angle(\vec{a}, \vec{b})}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline* }
 
 \end{frame}
 
@@ -81,19 +156,119 @@
 
 	\begin{center}
 	\begin{tikzpicture}
-	\coordinate[label=left:$A$] (A)at(0,0); \coordinate[label=left:$B$](B)at(1,3); \coordinate[label=right:$C$](C)at(4,3); \coordinate[label=right:$D$](D)at(3,0);
-	\draw[->, fill4,ultra thick] (0,0)--(1,3) node[midway, left = 0.1]{$\vec{a}$};
-	\draw[->, fill4,ultra thick] (0,0)--(3,0) node[midway, below = 0.1]{$\vec{b}$};
+	\coordinate[label=left:$A$] (A) at (0,0); \coordinate[label=left:$B$] (B) at (1,3); \coordinate[label=right:$C$] (C) at (4,3); \coordinate[label=right:$D$] (D) at (3,0);
+	\draw[->, fill4, thick] (0,0)--(1,3) node[midway, left = 0.1]{$\vec{a}$};
+	\draw[->, fill4, thick] (0,0)--(3,0) node[midway, below = 0.1]{$\vec{b}$};
 	\draw[fill4, thick] (1,3)--(3,0);
 	\draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] plot coordinates{(0,0) (1,3) (3, 0)}--cycle;
 	\draw (A)--(B)--(C)--(D)--cycle;
+	\end{tikzpicture}
 
+	\end{center}
+
+\end{frame}
+\begin{frame}{Ориентация}
+
+	\begin{defn}
+
+		Будем говорить, что тройка точек $(a, b, c)$ \alert{положительно ориентирована} и писать $\sign(a, b, c) > 0$, если поворот вектора
+		$\vec{ba}$ к вектору $\vec{bc}$ осуществляется против часовой стрелки.
+
+	\end{defn}
+
+	\begin{block}{Замечение}
+
+		Ориентация тройки точек $(a, b, c,)$ совпадает со знаком косого произведения $\vec{ba} \wedge \vec{bc}$.
+
+	\end{block}
+\end{frame}
+\begin{frame}{Ориентация}
+
+	\begin{center}
+	\begin{tikzpicture}
+	\begin{scope}
+	\coordinate[label= left:$b$] (b) at (0,1); \coordinate[label= left :$c$] (c) at (1,4); \coordinate[label=right:$a$] (a) at (3,1);
+	\draw[->, fill4, thick] (0,1)--(1,4) node[midway, left = 0.1]{$\vec{a}$};
+	\draw[->, fill4, thick] (0,1)--(3,1) node[midway, below = 0.1]{$\vec{b}$};
+	\draw pic[draw, ->, ultra thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=a--b--c};
+	\node[draw] at (1,5) {$\sign(a, b, c) > 0$};
+	\end{scope}
+
+	\begin{scope}[xshift=5cm]
+	\coordinate[label= left:$b$] (b) at (0,1); \coordinate[label= left :$a$] (a) at (1,4); \coordinate[label=right:$c$] (c) at (3,1);
+	\draw[->, fill4, thick] (0,1)--(1,4) node[midway, left = 0.1]{$\vec{a}$};
+	\draw[->, fill4, thick] (0,1)--(3,1) node[midway, below = 0.1]{$\vec{b}$};
+	\draw pic[draw, <-,  thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=c--b--a};
+	\node[draw] at (1,5) {$\sign(a, b, c) < 0$};
+	\end{scope}
 	\end{tikzpicture}
 	\end{center}
 
 \end{frame}
-\begin{frame}
-	\textsc{Скоро допишу, просто попробовал подгрузить.}
+
+\begin{frame}{Пересечение отрезков}
+
+	\begin{task}
+
+		Дана четверка точек $a, b, c, d$. Требуется определить, пересекаются ли отрезки $[ab]$ и $[cd]$.
+
+	\end{task}
+
+	Заметим, что отрезки $[ab]$ и $[cd]$ пересекаются т. и т.т., когда
+
+	\begin{itemize}
+		\item Концы $a, b$ лежат по разные стороны от прямой $(cd)$.
+
+		\item Концы $c, d$ лежат по разные стороны от прямой $(ab)$
+	\end{itemize}
+
+	Заметим, что точки $a$ и $b$  лежат по разные стороны от прямой $(cd)$ т. и т.т., когда
+	различны $\sign(a, c, d)$ и $\sign(b, c, d)$.
+
 \end{frame}
 
+\begin{frame}{Пересечение отрезков}
+
+	\begin{center}
+	\begin{tikzpicture}
+	\begin{scope}
+	\coordinate[label= left:$c$] (c) at (0,0); \coordinate[label= left :$d$] (d) at (3,3); \coordinate[label=right:$a$] (a) at (0,4); \coordinate[label=right:$b$] (b) at (3,1);
+	\draw[fill4, fill = fill4] (0,0) circle (0.07);\draw[fill4, fill = fill4] (3,3) circle (0.07); \draw[fill4, fill = fill4] (0,4) circle (0.07); \draw[fill4, fill = fill4] (3,1) circle (0.07);
+	\draw[fill4, thick] (a)--(b);
+	\draw[fill4, thick] (b)--(c);
+	\draw[fill5, thick] (c)--(d);
+	\draw pic[draw, ->,  thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=b--c--d};
+	\end{scope}
+	\begin{scope}[xshift=5cm]
+	\coordinate[label= left:$c$] (c) at (0,0); \coordinate[label= left :$d$] (d) at (3,3); \coordinate[label=right:$a$] (a) at (0,4); \coordinate[label=right:$b$] (b) at (3,1);
+	\draw[fill4, fill = fill4] (0,0) circle (0.07);\draw[fill4, fill = fill4] (3,3) circle (0.07); \draw[fill4, fill = fill4] (0,4) circle (0.07); \draw[fill4, fill = fill4] (3,1) circle (0.07);
+	\draw[fill5, thick] (a)--(b);
+	\draw[fill4, thick] (c)--(d);
+	\draw[fill4, thick] (b)--(c);
+	\draw pic[draw, ->, thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=a--b--c};
+	\end{scope}
+	\end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}{Пересечение отрезков}
+
+	\begin{center}
+	\begin{algorithmic}
+	\State \underline{\textsc{Intersect}(a, b, c, d):}
+	\If{$\sign(a, c, d) = \sign(b, c, d)$}
+		\State \Return \textsc{False}
+	\Else
+    	\If{$\sign(a, b, c) = \sign(a, b, d)$}
+        	\State \Return \textsc{False}
+	\Else
+		\State \Return \textsc{True}
+    	\EndIf
+	\EndIf
+	\end{algorithmic}
+	\end{center}
+
+\end{frame}
 \end{document}
+
