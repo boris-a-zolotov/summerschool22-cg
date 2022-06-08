@@ -1,10 +1,9 @@
 %! Author = Matthew
 %! Date = 16.05.2022
 \documentclass[12pt,aspectratio=169,svgnames]{beamer}
+
 \usepackage{modules/cgs}
-\usepackage{algorithmicx}
-\usepackage{angles, quotes, intersections}
-\DeclareMathOperator{\sign}{sign}
+
 \begin{document} \maketitle
 
 \begin{frame}{Содержание}
@@ -146,7 +145,7 @@
 \begin{frame}{Эквивалентность определений}
 
 	В самом деле, $\cos(\angle(\vec{a}, \vec{b})) = x_1 x_2 + y_1 y_2 / (\sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2})$.
-	\begin{multline*} \sin(\angle(\vec{a},\vec{b})) = \sqrt{1 - \cos^2({\angle(\vec{a}, \vec{b})}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline* }
+	\begin{multline*} \sin(\angle(\vec{a},\vec{b})) = \sqrt{1 - \cos^2({\angle(\vec{a}, \vec{b})}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline*}
 
 \end{frame}
 
@@ -200,8 +199,7 @@
 	\draw[->, fill4, thick] (0,1)--(3,1) node[midway, below = 0.1]{$\vec{b}$};
 	\draw pic[draw, <-,  thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=c--b--a};
 	\node[draw] at (1,5) {$\sign(a, b, c) < 0$};
-	\end{scope}
-	\end{tikzpicture}
+	\end{scope} \end{tikzpicture}
 	\end{center}
 
 \end{frame}
