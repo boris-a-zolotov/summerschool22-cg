@@ -1,0 +1,12 @@
+\begin{center} \tikz{
+	\foreach \x / \t in {
+	   -4.5 / {[},  -4 / 1,  -3 / 2,  -2 / 3,  -1 / 5,  0 / 8,
+	    4.5 / {]},   1 / 13,   2 / 21,   3 / 34,   4 / 55
+	} {\draw (0.9*\x,0) node{\t};}
+
+	\draw[HotPink] (0,-0.9)--(0,-0.5)
+		(-0.65,-0.7) node[left]{{\scriptsize здесь?}}
+		(0.65,-0.7) node[right]{{\scriptsize или здесь?}};
+	\draw[HotPink,->] (-0.2,-0.7) -- ++(-0.35,0);
+	\draw[HotPink,->] (0.2,-0.7) -- ++(0.35,0);
+} \end{center}
