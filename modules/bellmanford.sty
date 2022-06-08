@@ -1,0 +1,25 @@
+\newcommand{\q}{\infty}
+
+\newcommand{\bfcon}[4]{
+	\draw[->] (#1)--(#2) node[pos=0.45,#3,inner sep=1mm]{{\footnotesize #4}};
+}
+
+\newcommand{\bfnode}[3]{
+	node[circle,fill=dgray,draw=SandyBrown!#2!PaleGreen,
+	     inner sep=0.75mm](v#1){
+	     	\textcolor{SandyBrown!#2!PaleGreen}{\(#3\)}
+	     }}
+
+\newcommand{\cbfnode}[3]{\draw (c#1) \bfnode{#1}{#2}{#3};}
+
+\newcommand{\coordsequence}{
+	\coordinate (c1) at (1,0); \coordinate (c2) at (0,3);
+	\coordinate (c3) at (5,1); \coordinate (c4) at (4,5);
+	\coordinate (c5) at (9,4); \coordinate (c6) at (4,8.5);
+}
+
+\newcommand{\edgesequence}{
+	\bfcon{v1}{v2}{left}{2} \bfcon{v1}{v3}{below}{4} \bfcon{v2}{v3}{below}{1}
+	\bfcon{v3}{v5}{below}{6} \bfcon{v2}{v4}{below}{4} \bfcon{v4}{v5}{below}{2}
+	\bfcon{v2}{v6}{left}{9} \bfcon{v4}{v6}{right}{4} \bfcon{v5}{v6}{above}{1}
+}

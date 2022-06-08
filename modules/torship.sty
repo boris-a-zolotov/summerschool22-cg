@@ -1,0 +1,13 @@
+\newcommand{\torship}[9]{
+   \foreach \n / \o in {
+	0 / #1, 1 / #2, 2 / #3,
+	3 / #4, 4 / #5, 5 / #6,
+	6 / #7, 7 / #8, 8 / #9
+   } {\filldraw[draw=Violet,fill=LightGoldenrodYellow,
+                fill opacity = 0.15+0.85*\o,thick]
+	(90+40*\n : 1.4) arc (90+40*\n : 90+40*\n+40 : 1.4)
+	-- (90+40*\n+40 : 0.8) arc (90+40*\n+40 : 90+40*\n : 0.8)
+	-- cycle;}
+}
+
+\newcommand{\me}[1]{\fill[Violet] (70+40*#1:1.1) circle[radius=1.2mm];}

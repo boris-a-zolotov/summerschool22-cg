@@ -8,13 +8,19 @@
 \RequirePackage[linguistics]{forest}
 \usetikzlibrary{patterns,calc,positioning,
      decorations.pathmorphing,decorations.pathreplacing,
-     angles,quotes,intersections}
+     angles,quotes,intersections,arrows,arrows.meta}
 
-\RequirePackage[utf8x]{inputenc}
+\tikzset{>={To[width=1.9mm,length=2mm]}}
+
+% \RequirePackage[utf8x]{inputenc}
 \RequirePackage[russian]{babel}
 
+\RequirePackage{modules/bellmanford,modules/torship}
 \RequirePackage{amsthm} \DeclarePairedDelimiter\lr{(}{)}
 \DeclareMathOperator{\sign}{sign}
+
+\newcommand{\bn}{\mathbb{N}}
+\newcommand{\br}{\mathbb{R}}
 
 
 %════════════════════
