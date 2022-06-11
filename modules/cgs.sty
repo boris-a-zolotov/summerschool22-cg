@@ -8,14 +8,16 @@
 \RequirePackage[linguistics]{forest}
 \usetikzlibrary{patterns,calc,positioning,
      decorations.pathmorphing,decorations.pathreplacing,
-     angles,quotes,intersections,arrows,arrows.meta}
+     angles,quotes,intersections,arrows,arrows.meta,
+     backgrounds}
 
 \tikzset{>={To[width=1.6mm,length=1.8mm]}}
 
 % \RequirePackage[utf8x]{inputenc}
 \RequirePackage[russian]{babel}
 
-\RequirePackage{modules/bellmanford,modules/torship}
+\RequirePackage{modules/bellmanford,modules/torship,
+                modules/dcel}
 \RequirePackage{amsthm} \DeclarePairedDelimiter\lr{(}{)}
 \DeclareMathOperator{\sign}{sign}
 

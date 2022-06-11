@@ -1,0 +1,50 @@
+\colorlet{dcelcolor}{LightSkyBlue!75!LightGray}
+
+\tikzset{
+   ncbar/.style={
+      to path = ($(\tikztostart)!#1!30:(\tikztotarget)$)
+             -- ($(\tikztotarget)!#1!330:(\tikztostart)$)
+   },
+   ncbar/.default=2.7mm
+}
+
+\newcommand{\dnode}[2]{
+   \coordinate (v#2) at (#1);
+   \draw (v#2) node[circle,draw=dcelcolor,fill=dgray,inner sep=0.7mm]{ };
+}
+
+\newcommand{\dconn}[2]{
+   \draw[->,dcelcolor] (v#1) to[ncbar] (v#2);
+   \draw[->,dcelcolor] (v#2) to[ncbar] (v#1);
+}
+
+\newcommand{\ddraft}[2]{\draw[thick,dcelcolor] (v#1)--(v#2);}
+
+\newcommand{\bsobl}[1]{\begin{scope}[on background layer] #1 \end{scope}}
+
+\newcommand{\placeDcel}{
+   \dnode{0,0}{1} \dnode{1.5,1}{2} \dnode{-3.5,0.5}{3}
+   \dnode{3.5,1.5}{4} \dnode{-2,3}{5} \dnode{-6,2}{6}
+   \dnode{5.5,3.5}{7} \dnode{3,4}{8} \dnode{-4,5}{9}
+   \dnode{-7.5,5}{10} \dnode{7,6.5}{11} \dnode{3.5,7}{12}
+   \dnode{5,10}{13} \dnode{1,9}{14} \dnode{-3,8}{15}
+   \dnode{-6,9}{16}
+}
+
+\newcommand{\placeDcelArrows}{
+   \dconn12 \dconn13 \dconn53 \dconn52 \dconn24 \dconn{15}{14}
+   \dconn48 \dconn58 \dconn59 \dconn69 \dconn36 \dconn{6}{10}
+   \dconn{10}{9} \dconn{10}{16} \dconn{15}{16}
+   \dconn{15}{9} \dconn{14}{13} \dconn{14}{12}
+   \dconn{13}{11} \dconn{12}{11} \dconn{12}{8}
+   \dconn{11}{7} \dconn47 \dconn78
+}
+
+\newcommand{\placeDcelEdges}{
+   \ddraft12 \ddraft13 \ddraft53 \ddraft52 \ddraft24 \ddraft{15}{14}
+   \ddraft48 \ddraft58 \ddraft59 \ddraft69 \ddraft36 \ddraft{6}{10}
+   \ddraft{10}{9} \ddraft{10}{16} \ddraft{15}{16}
+   \ddraft{15}{9} \ddraft{14}{13} \ddraft{14}{12}
+   \ddraft{13}{11} \ddraft{12}{11} \ddraft{12}{8}
+   \ddraft{11}{7} \ddraft47 \ddraft78
+}
