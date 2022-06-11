@@ -1,0 +1,35 @@
+\documentclass[12pt,aspectratio=169,svgnames]{beamer}
+
+\usepackage{modules/cgs}
+
+\begin{document} \maketitle
+
+\begin{frame}{Содержание}
+	\tableofcontents
+\end{frame}
+
+\section{DCEL (de Berg et al., p.\,\,29\,\(+\)\,10)}
+
+\begin{frame}{Карта на плоскости}
+Разбиение \(\br^2\) на маркированные области.
+\begin{center}
+\begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\placeDcel
+	\bsobl{\placeDcelEdges}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Карта на плоскости}
+В вершинах и в областях могут храниться разные данные.
+\begin{center}
+\begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\placeDcel
+	\begin{scope}[on background layer]
+		\fill[red] (v5)--(v8)--(v12)--(v14)--(v15)--(v9)--cycle;
+		\placeDcelEdges
+	\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\end{document}
