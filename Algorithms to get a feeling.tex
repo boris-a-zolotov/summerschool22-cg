@@ -1,0 +1,300 @@
+%! Author = Matthew
+%! Date = 11.06.2022
+
+% Preamble
+\documentclass[12pt,aspectratio=169,svgnames]{beamer}
+\usepackage{modules/cgs}
+
+% Document
+\begin{document} \maketitle
+
+    \begin{frame}{Содержание}
+
+        \tableofcontents
+
+    \end{frame}
+
+    \section{Algorithms to get a feeling}
+
+    \subsection{Выпуклая оболочка}
+
+    \begin{frame}{Выпуклое множество}
+
+        \begin{defn}
+
+            Множество $S$ ~--- \alert{выпуклое}, если оно вместе с любыми двумя точками содержит отрезок между ними.
+
+        \end{defn}
+
+        \begin{center}
+
+        \begin{tikzpicture}[scale = 0.5]
+        \begin{scope}
+        \coordinate (a) at (0,0); \coordinate (b) at (-1,2); \coordinate (c) at (1,5); \coordinate (d) at (6,6); \coordinate (e) at (8,2); \coordinate (f) at (4,-1);
+        \draw[fill4, fill = fill4] (a) circle (0.07);\draw[fill4, fill = fill4] (b) circle (0.07); \draw[fill4, fill = fill4] (c) circle (0.07); \draw[fill4, fill = fill4] (d) circle (0.07); \draw[fill4, fill = fill4] (e) circle (0.07); \draw[fill4, fill = fill4] (f) circle (0.07);
+        \draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--(f)--cycle;
+
+        \end{scope}
+        \begin{scope}[xshift=12.5cm]
+        \coordinate (a) at (0,0); \coordinate (b) at (-1,2); \coordinate (c) at (1,5); \coordinate (d) at (2,1); \coordinate (e) at (8,2); \coordinate (f) at (4, -1); \coordinate (g) at (1, 3); \coordinate (h) at (5, 1);
+        \draw[fill4, fill = fill4] (a) circle (0.07);\draw[fill4, fill = fill4] (b) circle (0.07); \draw[fill4, fill = fill4] (c) circle (0.07); \draw[fill4, fill = fill4] (d) circle (0.07); \draw[fill4, fill = fill4] (e) circle (0.07); \draw[fill4, fill = fill4] (f) circle (0.07); \draw[fill1, fill = fill1] (g) circle (0.07); \draw[fill1, fill = fill1] (h) circle (0.07);
+        \draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--(f)--cycle;
+        \draw[fill1, thick] (g)--(h);
+        \end{scope}
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Выпуклая оболочка}
+        
+        \vspace{2mm}
+        \begin{defn}
+
+            \alert{Выпуклая оболочка $\mathcal{C}\mathcal{H}(S)$} множества $S$ ~--- наименьшее выпуклое множество, содержащее $S$.
+
+        \end{defn}
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.4]
+
+        \coordinate (a) at (0,0); \coordinate (b) at (-2,5); \coordinate (c) at (4,10); \coordinate (d) at (12,6); \coordinate (e) at (10,-2);
+        \draw[fill4, fill = fill4] (a) circle (0.07);\draw[fill4, fill = fill4] (b) circle (0.07); \draw[fill4, fill = fill4] (c) circle (0.07); \draw[fill4, fill = fill4] (d) circle (0.07); \draw[fill4, fill = fill4] (e) circle (0.07);
+        \draw[fill4, fill = fill4] (2, 3) circle (0.07);\draw[fill4, fill = fill4] (4, 7) circle (0.07); \draw[fill4, fill = fill4] (9, 3) circle (0.07); \draw[fill4, fill = fill4] (5, 1) circle (0.07); \draw[fill4, fill = fill4] (6, 3) circle (0.07);
+        \draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Вычисление выпуклой оболочки}
+
+        \begin{task}
+            Дано множество $S \subset \mathbb{R}^2$, $|S| = n$. Требуется найти координаты вершин его выпуклой оболочки
+            $\mathcal{C}\mathcal{H}(S)$.
+        \end{task}
+
+    \end{frame}
+
+    \begin{frame}{Вычисление выпуклой оболочки}
+
+        Есть много алгоритмов вычисления выпуклой оболочки на плоскости.
+        Большиство из них напоминают алгоритмы сортировок, к примеру
+
+        \begin{itemize}
+            \item Алгоритм Джарвиса -- Selectiont Sort.
+            \item Quick Hull -- Quick Sort.
+            \item Алгоритм <<Разделяй и властвуй>> -- Merge Sort.
+        \end{itemize}
+        Мы рассмотрим алгоритм <<Devide-and-Conquer>> из них. \\
+
+        Все алгоритмы <<Devide-and-Conquer>> имеют одну идею:
+
+        \begin{itemize}
+            \item Разбить задачу на подзадачи, от них вызываться рекурсивно.
+            \item Научиться быстро сливать подзадачи.
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: описание}
+        \begin{itemize}
+            \item $n \le 3 \Rightarrow$ <<brute force>>.
+            \item $n \ge 4 \Rightarrow$ разбиваем  $S$ на два примерно равных подмножества по $x$--координате, вызываемся на них рекурсивно.
+        \end{itemize}
+
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.33]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: слияние подзадач}
+
+        Для слияния поздадач будем считать \alert{верхнюю} и \alert{нижнюю касательные}.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        % upper tangent
+        \draw[fill4, thick] (2, 8)--(11, 7);
+        % lower tangent
+        \draw[fill4, thick] (0, 0)--(9,0);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: верхняя и нижняя касательные}
+
+        Идея вычисления: поднимаем тот конец,отрезка который можем поднять.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        % upper tangent
+        \draw[fill4, dashed, thick] (-3, 4)--(13, 4);
+        \draw[fill4, ultra thick] (b) circle (0.3);
+        \draw[fill4, ultra thick] (l) circle (0.3);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: верхняя и нижняя касательные}
+
+        Идея вычисления: поднимаем тот конец отрезка, который можем поднять.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        % upper tangent
+        \draw[fill4, dashed, thick] (-2, 7)--(13, 4);
+        \draw[fill4, dashed, thick] (-3, 4)--(13, 4);
+        \draw[->, fill4, dashed, thick] (-3, 4)--(-2, 7);
+        \draw[fill4,  thick] (b) circle (0.3);
+        \draw[fill4,  thick] (l) circle (0.3);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: верхняя и нижняя касательные}
+
+        Идея вычисления: поднимаем тот конец отрезка, который можем поднять.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        % upper tangent
+        \draw[fill4, dashed, thick] (-2, 7)--(13, 4);
+        \draw[fill4, dashed, thick] (2, 8)--(13, 4);
+        \draw[->, fill4, dashed, thick] (-2, 7)--(2, 8);
+        \draw[fill4,  thick] (c) circle (0.3);
+        \draw[fill4,  thick] (l) circle (0.3);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: верхняя и нижняя касательные}
+
+        Идея вычисления: поднимаем тот конец отрезка, который можем поднять.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % first part:
+        \coordinate (a) at (0,0); \coordinate (b) at (-3,4); \coordinate (c) at (-2,7); \coordinate (d) at (2,8); \coordinate (e) at (3,5);
+        \draw[fill5, fill = fill5] (a) circle (0.07); \draw[fill5, fill = fill5] (b) circle (0.07); \draw[fill5, fill = fill5] (c) circle (0.07); \draw[fill5, fill = fill5] (d) circle (0.07); \draw[fill5, fill = fill5] (e) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--cycle;
+        % second part:
+        \coordinate (f) at (9,0); \coordinate (g) at (5,2); \coordinate (h) at (6,6); \coordinate (k) at (11,7); \coordinate (l) at (13,4);
+        \draw[fill5, fill = fill5] (f) circle (0.07); \draw[fill5, fill = fill5] (g) circle (0.07); \draw[fill5, fill = fill5] (h) circle (0.07); \draw[fill5, fill = fill5] (k) circle (0.07); \draw[fill5, fill = fill5] (l) circle (0.07);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (f)--(g)--(h)--(k)--(l)--cycle;
+        % vertical line
+        \draw[fill1, dashed, thick] (4, 10)--(4, -1.5);
+        % some random dots inside:
+        \draw[fill5, fill = fill5] (-1.95, 6) circle (0.07); \draw[fill5, fill = fill5] (0.05, 5) circle (0.07); \draw[fill5, fill = fill5] (-1, 3) circle (0.07); \draw[fill5, fill = fill5] (1.95, 4) circle (0.07); \draw[fill5, fill = fill5] (1, 7) circle (0.07); \draw[fill5, fill = fill5] (0.1 , 1) circle (0.07);
+        \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
+        % upper tangent
+        \draw[fill4, dashed, thick] (2, 8)--(13, 4);
+        \draw[->, fill4, dashed, thick] (l)--(k);
+        \draw[fill4, thick] (d)--(k);
+        \draw[fill4,  thick] (d) circle (0.3);
+        \draw[fill4,  thick] (l) circle (0.3);
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: оценка времени работы}
+
+        Количество точек в подзадаче сокращается хотя бы в два раза, на слияние мы тратим линейное время
+        \[ T(n) = 2T\bigg(\frac{n}{2}\bigg) + O(n) \]
+        \begin{center}
+        \tikz
+        \node {$n$}[sibling distance = 2.5cm]
+        child { node {$T(\frac{n}{2})$} child{node{$T(\frac{n}{4})$}} child {node[xshift = -1cm]{$T(\frac{n}{4})$}}}
+        child { node {$T(\frac{n}{2})$} child{node[xshift = 1cm]{$T(\frac{n}{4})$}} child{node{$T(\frac{n}{4})$}}};
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: оценка времени работы}
+
+        \[ T(n) = 2T\bigg(\frac{n}{2}\bigg) + O(n) \]
+
+        Распишем это
+
+        \[ T(n) = O\bigg(n \cdot \bigg(\frac{2}{2} + \bigg(\frac{2}{2}\bigg)^2  + \ldots + \bigg(\frac{2}{2}\bigg)^{\log_{2}(n)}\bigg)\bigg) = O\bigg(n \cdot \sum\limits_{k = 1}^{\log_2{n}} 1 \bigg) = O(n\log_2(n)\bigg\]
+
+    \end{frame}
+
+    \begin{frame}{Will be upd\ldots}
+    \end{frame}
+
+\end{document}
