@@ -294,7 +294,66 @@
 
     \end{frame}
 
-    \begin{frame}{Will be upd\ldots}
+    \begin{frame}{Касательная к выпуклому многоугольнику}
+
+        \begin{task}
+            Дан выпуклый многоугольник $\mathcal{P} \subset \mathbb{R}^2$ и точка $X_0(x_0, y_0) \in \mathbb{R}^2$.
+            Найти касательную к $\mathcal{P}$ из точки $X(x_0, y_0)$.
+        \end{task}
+
+    \end{frame}
+
+    \begin{frame}{Касательная к выпуклому многоугольнику: алгоритм}
+
+        Каждой вершине сопоставим \emph{аргумент} -- угол, под которым она видна их точки $X_0$.
+
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.45]
+        % polygone:
+        \coordinate (a) at (0,0); \coordinate (b) at (-2,4); \coordinate (c) at (0,7); \coordinate (d) at (3,8); \coordinate (e) at (7,6); \coordinate (f) at (8, 1); \coordinate (g) at (4, -1); \coordinate[label= below :$X_0$] (p) at (-5, 1); \coordinate (l) at (-1, 1);
+        \draw[fill5, fill = fill5] (a) circle (0.13); \draw[fill5, fill = fill5] (b) circle (0.13); \draw[fill5, fill = fill5] (c) circle (0.13); \draw[fill5, fill = fill5] (d) circle (0.13); \draw[fill5, fill = fill5] (e) circle (0.13); \draw[fill5, fill = fill5] (f) circle (0.13); \draw[fill5, fill = fill5] (g) circle (0.13);
+        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--(f)--(g)--cycle;
+        % point:
+        \draw[fill5, fill = fill5] (p) circle (0.13);
+        \draw[fill4, -> , thick] (-10, 1)--(13, 1);
+        \draw[fill4, thick] (-5, 1)--(2, 8);
+        \draw pic[draw, <-,  thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=l--p--b};
+        \end{tikzpicture}
+        \end{center}
+
+    \end{frame}
+
+    \begin{frame}{Касательная к выпуклому многоугольнику: алгоритм}
+        У нужной вершины $v_i$ аргументы будут расположены так:
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.3]
+        % polygone:
+        \coordinate[fill4, label=right:$v_{i - 1}$] (a) at (0,0); \coordinate[fill4, label=right:$v_i$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{i + 1}$] (c) at (1, 6);
+        \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
+        \draw[fill4, thick] (a)--(b) node[xshift = 0.1cm, yshift= -0.7cm]{$\vee$};
+        \draw[fill4, thick] (b)--(c) node[xshift = -0.6cm, yshift = -0.25cm]{$\wedge$};
+        \end{tikzpicture}
+        \end{center}
+        Как понять, с какой стороны нужная вершина:
+        \begin{center}
+        \begin{tikzpicture}[scale = 0.3]
+        \begin{scope}
+        % polygone:
+        \coordinate[fill4, label=right:$v_{i - 1}$] (a) at (0,0); \coordinate[fill4, label=left:$v_i$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{i + 1}$] (c) at (1, 6);
+        \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
+        \draw[fill4, thick, <-] (a)--(b) node[xshift = 0.1cm, yshift= -0.7cm]{$\wedge$};
+        \draw[fill4, thick, <-] (b)--(c) node[xshift = -0.6cm, yshift = -0.25cm]{$\wedge$};
+        \end{scope}
+        \begin{scope}[xshift = 10cm]
+        % polygone:
+        \coordinate[fill4, label=right:$v_{i - 1}$] (a) at (0,0); \coordinate[fill4, label=left:$v_i$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{i + 1}$] (c) at (1, 6);
+        \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
+        \draw[fill4, thick, ->] (a)--(b) node[xshift = 0.1cm, yshift= -0.7cm]{$\vee$};
+        \draw[fill4, thick, ->] (b)--(c) node[xshift = -0.6cm, yshift = -0.25cm]{$\vee$};
+        \end{scope}
+        \end{tikzpicture}
+
+        \end{center}
     \end{frame}
 
 \end{document}
