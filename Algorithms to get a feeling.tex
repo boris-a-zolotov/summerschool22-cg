@@ -288,9 +288,19 @@
 
         \[ T(n) = 2T\bigg(\frac{n}{2}\bigg) + O(n) \]
 
-        Распишем это
-
-        \[ T(n) = O\bigg(n \cdot \bigg(\frac{2}{2} + \bigg(\frac{2}{2}\bigg)^2  + \ldots + \bigg(\frac{2}{2}\bigg)^{\log_{2}(n)}\bigg)\bigg) = O\bigg(n \cdot \sum\limits_{k = 1}^{\log_2{n}} 1 \bigg) = O(n\log_2(n)\bigg\]
+        Распишем это:
+   \[ T(n) =
+      O \lr*{
+         n \cdot \lr*{
+            \frac{2}{2} + \lr*{
+               \frac{2}{2}
+            }^2 + \ldots + \lr*{
+               \frac{2}{2}
+            }^{\log_{2}(n)}
+         }
+      } = O \lr*{
+         n \cdot \sum\limits_{k = 1}^{\log_2{n}} 1 
+      } = O \lr*{n\log_2\lr*{n}}.\]
 
     \end{frame}
 
@@ -372,7 +382,7 @@
             \begin{tikzpicture}[scale = 0.3]
             \begin{scope}
             % first:
-            \node[text] at (-2, 7) {1};
+            \draw (-2,7) node{1};
             \draw[thick] (-2, 7)  circle (0.7);
             \coordinate[fill4, label=right:$v_{n}$] (a) at (0,0); \coordinate[fill4, label=left:$v_0$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{1}$] (c) at (1, 6);
             \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
@@ -390,7 +400,7 @@
 
             \begin{scope}[xshift = 20cm]
             % third:
-            \node[text] at (-2, 7) {2};
+            \draw (-2,7) node{2};
             \draw[thick] (-2, 7)  circle (0.7);
             \coordinate[fill4, label=right:$v_{1}$] (a) at (0,0); \coordinate[fill4, label=right:$v_{0}$] (b) at (2,3); \coordinate[fill4, label=right:$v_{n}$] (c) at (-1, 6);
             \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
@@ -416,7 +426,7 @@
         \begin{tikzpicture}[scale = 0.3]
         \begin{scope}
         % first:
-        \node[text] at (-2, 7) {3};
+        \draw (-2,7) node{3};
         \draw[thick] (-2, 7)  circle (0.7);
         \coordinate[fill4, label=right:$v_{n}$] (a) at (0,0); \coordinate[fill4, label=left:$v_0$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{1}$] (c) at (1, 6);
         \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
