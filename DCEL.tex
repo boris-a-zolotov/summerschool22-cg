@@ -8,7 +8,7 @@
 	\tableofcontents
 \end{frame}
 
-\section{DCEL (de Berg et al., p.\,\,29\,\(+\)\,10)}
+\section{DCEL (de Berg et al., p. 29+10)}
 
 \begin{frame}{Карта на плоскости}
 Разбиение \(\br^2\) на маркированные области.
@@ -25,11 +25,62 @@
 \begin{center}
 \begin{tikzpicture}[scale=0.56,draw=dcelcolor]
 	\placeDcel
-	\begin{scope}[on background layer]
-		\fill[red] (v5)--(v8)--(v12)--(v14)--(v15)--(v9)--cycle;
-		\placeDcelEdges
-	\end{scope}
+	\bsobl{
+	  \fill[p9260u,opacity=0.42] (v5)--(v8)--(v12)--(v14)--(v15)--(v9)--cycle;
+	  \fill[p9121u,opacity=0.42] (v10)--(v16)--(v15)--(v9)--cycle;
+	  \fill[p9480u,opacity=0.42] (v10)--(v9)--(v6)--cycle;
+	  \fill[p9584u,opacity=0.42] (v9)--(v6)--(v3)--(v5)--cycle;
+	  \fill[p9480u,opacity=0.42] (v3)--(v5)--(v2)--(v1)--cycle;
+	  \fill[p9121u,opacity=0.42] (v2)--(v4)--(v8)--(v5)--cycle;
+	  \fill[p9480u,opacity=0.42] (v4)--(v8)--(v7)--cycle;
+	  \fill[p9584u,opacity=0.42] (v7)--(v8)--(v12)--(v11)--cycle;
+	  \fill[p9121u,opacity=0.42] (v12)--(v11)--(v13)--(v14)--cycle;
+	  \placeDcelEdges
+	}
 \end{tikzpicture}
 \end{center}
 \end{frame}
+
+\begin{frame}{Поддерживаемые операции}
+\begin{itemize}
+	\item Обход области против часовой стрелки: даны клетка и ребро,\\
+	      перейти к следующему ребру. \medskip
+	\item Обход вершины по часовой стрелке: даны вершина и ребро,\\
+	      перейти к следующему ребру. \medskip
+	\item Переход между клетками: даны клетка и ребро, указать\\
+	      клетку «по ту сторону» ребра.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Полурёбра}
+Рассмотрим вместо каждого ребра его два направленных варианта.
+\begin{center}
+\begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\placeDcel
+	\placeDcelArrows
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Структура данных}
+Запись для каждых вершины, ребра, области; и указатели: \begin{itemize}
+	\item от каждого полуребра к предыдущему и следующему,
+	\item между двумя полурёбрами одного ребра,
+	\item между вершиной и смежными с ней рёбрами,
+	\item между областью и её рёбрами.
+\end{itemize} \begin{center} \begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\dnode{0,0}{1} \dnode{4,-0.5}{2} \dnode{6,3}{3} \dnode{0.5,4}{4}
+   \bsobl{
+	\draw[dgray] (v1)--(v2) \ninjanode{0.6}{s1} -- (v3) \ninjanode{0.4}{s2}
+	             (v3)--(v4) \ninjanode{0.45}{m1} \ninjanode{0.625}{vn}
+	             (v4)--(v1) \ninjanode{0.65}{m2};
+   }
+	\dconn12 \dconn23 \dconn34 \dconn41
+	\draw[FireBrick,<->] (s1) to[out=90,in=150] (s2);
+	\draw[FireBrick,<->] (m1) to[out=255,in=50] (2.5,1.5);
+	\draw[FireBrick,<->] (vn) to[out=-150,in=-67.5] (v4);
+	\draw[rotate=-7.1,FireBrick,<->] (m2) .. controls ++(2,1.2) and ++(-2,1.2) .. (m2);
+\end{tikzpicture} \end{center}
+\end{frame}
+
 \end{document}
