@@ -13,6 +13,10 @@
    \draw (v#2) node[circle,draw=dcelcolor,fill=dgray,inner sep=0.7mm]{ };
 }
 
+\newcommand{\ninjanode}[2]{
+   node[pos=#1,circle,fill,fill=dgray,inner sep=0.95mm](#2){ }
+}
+
 \newcommand{\dconn}[2]{
    \draw[->,dcelcolor] (v#1) to[ncbar] (v#2);
    \draw[->,dcelcolor] (v#2) to[ncbar] (v#1);
