@@ -3,15 +3,13 @@
 
 % Preamble
 \documentclass[12pt,aspectratio=169,svgnames]{beamer}
-\usepackage{modules/cgs}
+\usepackage{cgs}
 
 % Document
-\begin{document} \maketitle
+\begin{document}\maketitle
 
     \begin{frame}{Содержание}
-
         \tableofcontents
-
     \end{frame}
 
     \section{Algorithms to get a feeling}
@@ -19,6 +17,7 @@
     \subsection{Выпуклая оболочка}
 
     \begin{frame}{Выпуклое множество}
+        \vspace{2mm}
 
         \begin{defn}
 
@@ -33,7 +32,6 @@
         \coordinate (a) at (0,0); \coordinate (b) at (-1,2); \coordinate (c) at (1,5); \coordinate (d) at (6,6); \coordinate (e) at (8,2); \coordinate (f) at (4,-1);
         \draw[fill4, fill = fill4] (a) circle (0.07);\draw[fill4, fill = fill4] (b) circle (0.07); \draw[fill4, fill = fill4] (c) circle (0.07); \draw[fill4, fill = fill4] (d) circle (0.07); \draw[fill4, fill = fill4] (e) circle (0.07); \draw[fill4, fill = fill4] (f) circle (0.07);
         \draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] (a)--(b)--(c)--(d)--(e)--(f)--cycle;
-
         \end{scope}
         \begin{scope}[xshift=12.5cm]
         \coordinate (a) at (0,0); \coordinate (b) at (-1,2); \coordinate (c) at (1,5); \coordinate (d) at (2,1); \coordinate (e) at (8,2); \coordinate (f) at (4, -1); \coordinate (g) at (1, 3); \coordinate (h) at (5, 1);
@@ -48,7 +46,7 @@
 
     \begin{frame}{Выпуклая оболочка}
         
-        \vspace{2mm}
+        \vspace{3mm}
         \begin{defn}
 
             \alert{Выпуклая оболочка $\mathcal{C}\mathcal{H}(S)$} множества $S$ ~--- наименьшее выпуклое множество, содержащее $S$.
@@ -71,7 +69,8 @@
     \begin{frame}{Вычисление выпуклой оболочки}
 
         \begin{task}
-            Дано множество $S \subset \mathbb{R}^2$, $|S| = n$. Требуется найти координаты вершин его выпуклой оболочки
+            Дано множество $S \subset \mathbb{R}^2$, $|S| = n$.
+            Требуется найти координаты вершин его выпуклой оболочки
             $\mathcal{C}\mathcal{H}(S)$.
         \end{task}
 
@@ -83,20 +82,30 @@
         Большиство из них напоминают алгоритмы сортировок, к примеру
 
         \begin{itemize}
-            \item Алгоритм Джарвиса -- Selectiont Sort.
-            \item Quick Hull -- Quick Sort.
-            \item Алгоритм <<Разделяй и властвуй>> -- Merge Sort.
-        \end{itemize}
-        Мы рассмотрим алгоритм <<Devide-and-Conquer>> из них. \\
-
-        Все алгоритмы <<Devide-and-Conquer>> имеют одну идею:
-
-        \begin{itemize}
-            \item Разбить задачу на подзадачи, от них вызываться рекурсивно.
-            \item Научиться быстро сливать подзадачи.
+            \item Алгоритм Джарвиса ~--- Selectiont Sort.
+            \item Quick Hull ~--- Quick Sort.
+            \item Алгоритм <<Разделяй и властвуй>> ~--- Merge Sort.
         \end{itemize}
 
     \end{frame}
+
+    \begin{frame}{Алгоритмы <<Разделяй и властвуй>>}
+
+        Из представленных выше мы рассмотрим алгоритм $Divide-and-conquer$. \\
+
+        Все алгоритмы <<Divide-and-Conquer>> имеют одну идею:
+
+        \begin{itemize}
+
+            \item Разбить задачу на подзадачи, от них вызываться рекурсивно.
+
+            \item Научиться быстро сливать подзадачи.
+
+        \end{itemize}
+
+    \end{frame}
+
+    \subsection{Алгоритм $D\&C$ для выпуклой оболочки}
 
     \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: описание}
         \begin{itemize}
@@ -127,7 +136,7 @@
 
     \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: слияние подзадач}
 
-        Для слияния поздадач будем считать \alert{верхнюю} и \alert{нижнюю касательные}.
+        Для слияния подзадач будем считать \alert{верхнюю} и \alert{нижнюю касательные}.
 
         \begin{center}
         \begin{tikzpicture}[scale = 0.45]
@@ -155,7 +164,7 @@
 
     \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: верхняя и нижняя касательные}
 
-        Идея вычисления: поднимаем тот конец,отрезка который можем поднять.
+        Идея вычисления: поднимаем тот конец отрезка, который можем поднять.
 
         \begin{center}
         \begin{tikzpicture}[scale = 0.45]
@@ -174,8 +183,8 @@
         \draw[fill5, fill = fill5] (6, 4) circle (0.07); \draw[fill5, fill = fill5] (7, 2) circle (0.07); \draw[fill5, fill = fill5] (8, 5.5) circle (0.07); \draw[fill5, fill = fill5] (10, 6.2) circle (0.07); \draw[fill5, fill = fill5] (12, 5) circle (0.07); \draw[fill5, fill = fill5] (9.2, 1) circle (0.07); \draw[fill5, fill = fill5] (11, 3) circle (0.07); \draw[fill5, fill = fill5] (9.6, 3.5) circle (0.07); \draw[fill5, fill = fill5] (7.5, 3.52) circle (0.07);
         % upper tangent
         \draw[fill4, dashed, thick] (-3, 4)--(13, 4);
-        \draw[fill4, ultra thick] (b) circle (0.3);
-        \draw[fill4, ultra thick] (l) circle (0.3);
+        \draw[fill4, thick] (b) circle (0.3);
+        \draw[fill4, thick] (l) circle (0.3);
         \end{tikzpicture}
         \end{center}
 
@@ -277,7 +286,7 @@
         \[ T(n) = 2T\bigg(\frac{n}{2}\bigg) + O(n) \]
         \begin{center}
         \tikz
-        \node {$n$}[sibling distance = 2.5cm]
+        \node {$T(n)$}[sibling distance = 2.5cm]
         child { node {$T(\frac{n}{2})$} child{node{$T(\frac{n}{4})$}} child {node[xshift = -1cm]{$T(\frac{n}{4})$}}}
         child { node {$T(\frac{n}{2})$} child{node[xshift = 1cm]{$T(\frac{n}{4})$}} child{node{$T(\frac{n}{4})$}}};
         \end{center}
@@ -285,11 +294,11 @@
     \end{frame}
 
     \begin{frame}{Алгоритм $D\&C$ для $\mathcal{C}\mathcal{H}$: оценка времени работы}
-
         \[ T(n) = 2T\bigg(\frac{n}{2}\bigg) + O(n) \]
 
         Распишем это:
-   \[ T(n) =
+
+        \[ T(n) =
       O \lr*{
          n \cdot \lr*{
             \frac{2}{2} + \lr*{
@@ -299,16 +308,18 @@
             }^{\log_{2}(n)}
          }
       } = O \lr*{
-         n \cdot \sum\limits_{k = 1}^{\log_2{n}} 1 
+         n \cdot \sum\limits_{k = 1}^{\log_2{n}} 1
       } = O \lr*{n\log_2\lr*{n}}.\]
 
     \end{frame}
+
+    \subsection{Касательная к выпуклому многоугольнику}
 
     \begin{frame}{Касательная к выпуклому многоугольнику}
 
         \begin{task}
             Дан выпуклый многоугольник $\mathcal{P} \subset \mathbb{R}^2$ и точка $X_0(x_0, y_0) \in \mathbb{R}^2$.
-            Найти касательную к $\mathcal{P}$ из точки $X(x_0, y_0)$.
+            Найти касательную к $\mathcal{P}$ из точки $X_0(x_0, y_0)$.
         \end{task}
 
     \end{frame}
@@ -336,10 +347,11 @@
     \begin{frame}{Касательная к выпуклому многоугольнику: алгоритм}
 
         У нужной вершины $v_i$ аргументы будут расположены так:
+
         \begin{center}
         \begin{tikzpicture}[scale = 0.3]
         % polygone:
-        \coordinate[fill4, label=right:$v_{i - 1}$] (a) at (0,0); \coordinate[fill4, label=right:$v_i$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{i + 1}$] (c) at (1, 6);
+        \coordinate[fill4, label=right:$v_{i - 1}$] (a) at (0,0); \coordinate[fill4, label=left:$v_i$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{i + 1}$] (c) at (1, 6);
         \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
         \draw[fill4, thick] (a)--(b) node[xshift = 0.1cm, yshift= -0.7cm]{$\vee$};
         \draw[fill4, thick] (b)--(c) node[xshift = -0.6cm, yshift = -0.25cm]{$\wedge$};
@@ -347,7 +359,7 @@
         \end{center}
 
         Как понять, с какой стороны нужная вершина:
-        
+
         \begin{center}
         \begin{tikzpicture}[scale = 0.3]
         \begin{scope}
@@ -373,7 +385,7 @@
          \begin{itemize}
 
              \item Выберем две вершины на противоположных сторонах -- $v_0$ и $v_{\frac{n}{2}}$,
-                   аргументы их и их соседей.
+                   посчитаем аргументы их и их соседей.
 
              \item Получим один из случаев:
 
@@ -382,7 +394,7 @@
             \begin{tikzpicture}[scale = 0.3]
             \begin{scope}
             % first:
-            \draw (-2,7) node{1};
+            \node[text] at (-2, 7) {1};
             \draw[thick] (-2, 7)  circle (0.7);
             \coordinate[fill4, label=right:$v_{n}$] (a) at (0,0); \coordinate[fill4, label=left:$v_0$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{1}$] (c) at (1, 6);
             \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
@@ -400,7 +412,7 @@
 
             \begin{scope}[xshift = 20cm]
             % third:
-            \draw (-2,7) node{2};
+            \node[text] at (-2, 7) {2};
             \draw[thick] (-2, 7)  circle (0.7);
             \coordinate[fill4, label=right:$v_{1}$] (a) at (0,0); \coordinate[fill4, label=right:$v_{0}$] (b) at (2,3); \coordinate[fill4, label=right:$v_{n}$] (c) at (-1, 6);
             \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
@@ -426,7 +438,7 @@
         \begin{tikzpicture}[scale = 0.3]
         \begin{scope}
         % first:
-        \draw (-2,7) node{3};
+        \node[text] at (-2, 7) {3};
         \draw[thick] (-2, 7)  circle (0.7);
         \coordinate[fill4, label=right:$v_{n}$] (a) at (0,0); \coordinate[fill4, label=left:$v_0$] (b) at (-2,3); \coordinate[fill4, label=right:$v_{1}$] (c) at (1, 6);
         \draw[fill4, fill = fill4] (a) circle (0.13); \draw[fill4, fill = fill4] (b) circle (0.13); \draw[fill4, fill = fill4] (c) circle (0.13);
@@ -453,7 +465,7 @@
 
     \end{frame}
 
-    \begin{frame}{Касательная к выпуклому многоугольнику: время работы}
+    \begin{frame}{Кас. к вып. многоуг.: время работы}
 
         Каждый следующий запрос -- $O(1)$ проверок ориентации.
         Всего запросов -- $O(\log(n))$, а значит, время работы -- $O(\log(n))$.
@@ -476,7 +488,7 @@
     \vspace{2mm}
     \begin{lm}[О триангуляции]\hypertarget{trianglemm}{}
 
-        Всякий многоугольник можно диагоналями разбить на треугольники, причем полученный граф краситься в 3 цвета.
+        Всякий многоугольник можно диагоналями разбить на треугольники, причем полученный граф красится в 3 цвета.
 
     \end{lm}
 
@@ -529,7 +541,7 @@
         \end{center}
 
         \begin{itemize}
-         \item Отрезок между соседними  вершинами не лежит в многоугольнике:\\
+        \item Отрезок между соседними  вершинами не лежит в многоугольнике:\\
 
         \begin{center}
         \begin{tikzpicture}[scale = 0.25]
