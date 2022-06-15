@@ -85,7 +85,7 @@
 	    \item Ищем серединные перепендикуляры к $[ac]$ и $[bc]$,\\ как прямые $p_1$ и $p_2$.\\
 
 			  Если $\ell_1\colon y = a_1x + b_1$, а $\ell_2\colon y = a_2 x + b_2$, то $\ell_1 \perp \ell_2 \Leftrightarrow a_1 \cdot a_2 = -1$.\\
-			  Находим серединный перпендикуляр к сторонекак прямую, проходящую через середину стороны и перпендикулярную ей.
+			  Находим серединный перпендикуляр к стороне как прямую, проходящую через середину стороны и перпендикулярную ей.
 
 		\item Ищем их пересечение, как решение линейной системы: \\
 			$p_1\colon y = \alpha_1 x + \beta, \ p_2\colon y = \alpha_2 x + \beta_2$.\\
@@ -118,7 +118,7 @@
 	Рассмотрим вектора $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$.
 	\[ \langle \vec{a}, \vec{b} \rangle = x_1 x_2 + y_1 y_2 = |\vec{a}||\vec{b}| \cos{\angle{(\vec{a}, \vec{b})}} = \sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2} \cos{\angle(\vec{a}, \vec{b})}\]
 	Значит, мы знаем, как найти угол между векторами $\vec{a}$ и $\vec{b}$:
-	\[ \angle(\vec{a}, \vec{b}) = \arccos\bigg(\frac{x_1 y_1 + x_2 y_2}{\sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2}}\bigg) \]
+	\[ \angle(\vec{a}, \vec{b}) = \arccos\lr*{\frac{x_1 y_1 + x_2 y_2}{\sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2}}} \]
 
 \end{frame}
 
@@ -127,11 +127,11 @@
 	\begin{defn}
 
 		\alert{Косым произведением} векторов $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$ на плоскости будем называть
-		\[ \vec{a} \wedge \vec{b} =  \begin{vmatrix} x_1 & y_2 \\ x_2 & y_2  \end{vmatrix} = x_1 y_2 - x_2 y_1\]
+		\[ \vec{a} \wedge \vec{b} =  \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2  \end{vmatrix} = x_1 y_2 - x_2 y_1\]
 
 	\end{defn}
 
-	Покажем, что $\vec{a} \wedge \vec{b} = |\vec{a}| |\vec{b}| \sin \lr*{\angle \lr*{\vec{a},\vec{b}}}$, где $\angle\lr*{\vec{a}, \vec{b}}$ ~--- угол
+	Покажем, что $\vec{a} \wedge \vec{b} = |\vec{a}| |\vec{b}| \sin \lr*{\angle \lr*{\vec{a},\vec{b}}}$, где $\angle\lr*{\vec{a}, \vec{b}}$~--- угол
 	вращения против часовой стрелки от $\vec{a}$ к $\vec{b}$.
 
 \end{frame}
@@ -139,7 +139,7 @@
 \begin{frame}{Эквивалентность определений}
 
 	В самом деле, $ \cos \lr*{\angle \lr*{a,b}} = x_1 x_2 + y_1 y_2 / (\sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2})$.
-	\begin{multline*} \sin \lr*{\angle \lr*{\vec{a},\vec{b}}} = \sqrt{1 - \cos^2 \lr*{\angle \lr*{\vec{a},\vec{b}}}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline* }
+	\begin{multline*} \sin \lr*{\angle \lr*{\vec{a},\vec{b}}} = \sqrt{1 - \cos^2 \lr*{\angle \lr*{\vec{a},\vec{b}}}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline*}
 
 \end{frame}
 
@@ -210,7 +210,7 @@
 
 	\end{task}
 
-	Заметим, что отрезки $[ab]$ и $[cd]$ пересекаются т. и т.т., когда
+	Заметим, что отрезки $[ab]$ и $[cd]$ пересекаются т. и т. т., когда
 
 	\begin{itemize}
 		\item Концы $a, b$ лежат по разные стороны от прямой $(cd)$.
