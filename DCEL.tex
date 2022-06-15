@@ -78,9 +78,62 @@
 	\dconn12 \dconn23 \dconn34 \dconn41
 	\draw[FireBrick,<->] (s1) to[out=90,in=150] (s2);
 	\draw[FireBrick,<->] (m1) to[out=255,in=50] (2.5,1.5);
-	\draw[FireBrick,<->] (vn) to[out=-150,in=-67.5] (v4);
+	\draw[FireBrick,<->] (vn) to[out=-150,in=-60] (vn4);
 	\draw[rotate=-7.1,FireBrick,<->] (m2) .. controls ++(2,1.2) and ++(-2,1.2) .. (m2);
 \end{tikzpicture} \end{center}
+\end{frame}
+
+\begin{frame}{Дополнительные операции}
+Имея DCEL, легко построить DCEL для {\it двойственного графа.} \\
+Скопируем записи вершин, это будут новые грани.
+\begin{center} \begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\dnode{0,0}{1} \dnode{4,-0.5}{2} \dnode{6,3}{3} \dnode{0.5,4}{4}
+	\dconn12 \dconn23 \dconn34 \dconn41
+	\fnode{7,1}{1} \fnode{2.5,1.5}{2} \fnode{1.5,-1.5}{3}
+	\draw[fill3,->] (fn1) to[bend right] node[pos=0.55,inner sep=0.2mm](ve1){ }
+	   node[pos=0.78,inner sep=0.2mm](ns1){ } (fn2);
+	\draw[fill3,->] (fn2) to[bend right] node[pos=0.27,inner sep=0.2mm](ns2){ }
+	   node[pos=0.45,inner sep=0.2mm](ve2){ } (fn3);
+	\draw[FireBrick,<->] (vn2) to[bend left] (ve1);
+	\draw[FireBrick,<->] (vn2) to[bend right] (ve2);
+	\draw[FireBrick,<->] (ns1) to[bend left] (ns2);
+\end{tikzpicture} \end{center} \vspace{-3mm}
+Чтобы соединять указателями полурёбра, будем хранить,\\
+какие вершины мы уже обслужили.
+\end{frame}
+
+\begin{frame}{Разрезание и склеивание}
+\begin{itemize}
+	\item \(\dcsplit (f,v_1,v_2)\)~— разделить область \(f\) ребром \(v_1v_2\) на две новых.
+	\item \(\dcmerge (f_1,f_2,e)\)~— стереть ребро \(e\), объединив между собой \\
+	   области \(f_1\) и \(f_2\).
+\end{itemize}
+\begin{center} \begin{tikzpicture}[scale=0.56,draw=dcelcolor]
+	\dnode{0,0}{1} \dnode{4,-0.5}{2} \dnode{6,3}{3} \dnode{0.5,4}{4}
+	\dconn12 \dconn23 \dconn34 \dconn41
+	\draw[fill3] (vn2)--(vn4);
+\end{tikzpicture} \end{center} \vspace{-3mm}
+
+	В худшем случае занимают время~\(O(n)\), потому что переделывать \\
+	все указатели ребро~\(\leftrightarrow\) область.
+\end{frame}
+
+\begin{frame}{Ломти}
+	Разделим клетки на \alert{маленькие} и \alert{большие}. Большие~— те,\\
+	у которых больше \(\sqrt{n}\) вершин.
+
+	Полурёбра маленьких клеток будем хранить как есть, полурёбра\\
+	больших клеток объединим в \alert{ломти} по примерно \(\sqrt{n}\) подряд идущих. \bigskip
+
+	{\footnotesize \textcolor{white!46!dgray}{Картинка на доске}}
+\end{frame}
+
+\begin{frame}{То же самое за polylog}
+\begin{block}{Упражнение.}
+	Убедитесь, что, если хранить полурёбра в структуре\\
+	{\it link-cut tree,} можно делать операции split и merge\\
+	в среднем за \(O\lr*{\text{polylog}\lr*{n}}\).
+\end{block}
 \end{frame}
 
 \end{document}
