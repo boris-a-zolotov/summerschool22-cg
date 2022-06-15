@@ -10,7 +10,12 @@
 
 \newcommand{\dnode}[2]{
    \coordinate (v#2) at (#1);
-   \draw (v#2) node[circle,draw=dcelcolor,fill=dgray,inner sep=0.7mm]{ };
+   \draw (v#2) node[circle,draw=dcelcolor,fill=dgray,inner sep=0.7mm](vn#2){ };
+}
+
+\newcommand{\fnode}[2]{
+   \coordinate (f#2) at (#1);
+   \draw (f#2) node[circle,draw=fill3,fill=dgray,inner sep=0.7mm](fn#2){ };
 }
 
 \newcommand{\ninjanode}[2]{
