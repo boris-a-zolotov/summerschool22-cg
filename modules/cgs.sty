@@ -3,6 +3,7 @@
 \RequirePackage{hyperref,natbib,alphalph}
 \RequirePackage{algorithm,algpseudocode}
 \RequirePackage{algorithmicx}
+\RequirePackage{import,xifthen,pdfpages,transparent}
 
 \RequirePackage{tikz}
 \RequirePackage[linguistics]{forest}
@@ -26,6 +27,11 @@
 \newcommand{\bn}{\mathbb{N}}
 \newcommand{\br}{\mathbb{R}}
 \newcommand{\CH}{\ensuremath{\mathcal{C}\mathcal{H}}}
+
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./pictures/}{#1.pdf_tex}
+}
 
 
 %════════════════════
