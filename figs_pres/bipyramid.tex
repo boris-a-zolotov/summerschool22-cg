@@ -1,0 +1,46 @@
+\tikz{
+\begin{scope}[scale=0.7]
+% \filldraw[draw=white,fill=white] (-1.6,-2.4) rectangle (1.6,3.0);
+
+\begin{scope}[yscale=0.37,xscale=1]
+\draw [dotted] (-1.4,0) arc (180:90:1.4cm) arc (90:0:1.4cm);
+
+\coordinate (A) at (0:1.4cm);
+\coordinate (B) at (42:1.4cm);
+\coordinate (C) at (81:1.4cm);
+\coordinate (D) at (128:1.4cm);
+\coordinate (E) at (162:1.4cm);
+\coordinate (F) at (182:1.4cm);
+\coordinate (G) at (224:1.4cm);
+\coordinate (H) at (258:1.4cm);
+\coordinate (I) at (302:1.4cm);
+\coordinate (J) at (325:1.4cm);
+\end{scope}
+
+\coordinate (U) at (0,2.44);
+\coordinate (V) at (0,-2.44);
+
+\draw[thick,dashed] (A) -- (B) -- (C) -- (D) -- (E);
+
+\draw[thick,dashed] (V) -- (B) -- (U);
+\draw[thick,dashed] (V) -- (C) -- (U);
+\draw[thick,dashed] (V) -- (D) -- (U);
+
+\draw[thick,dashed] (V) -- (E);
+
+\zal 3 (F) -- (E) -- (U) -- (A) -- (V) -- cycle;
+
+\draw[thick] (E) -- (F) -- (G) -- (H) -- (I) -- (J) -- (A);
+
+\draw[thick] (V) -- (F) -- (U);
+\draw[thick] (V) -- (G) -- (U);
+\draw[thick] (V) -- (H) -- (U);
+\draw[thick] (V) -- (I) -- (U);
+\draw[thick] (V) -- (J) -- (U);
+\draw[thick] (V) -- (A) -- (U);
+
+\draw[thick] (E) -- (U);
+
+\begin{scope}[yscale=0.37,xscale=1]
+\draw [dotted] (-1.4,0) arc (180:270:1.4cm) arc (270:360:1.4cm);
+\end{scope}\end{scope}}
