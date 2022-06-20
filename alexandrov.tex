@@ -1,0 +1,120 @@
+\documentclass[12pt,aspectratio=169,svgnames]{beamer}
+
+\usepackage{modules/cgs}
+
+\begin{document} \maketitle
+
+\begin{frame}{Содержание}
+	\tableofcontents
+\end{frame}
+
+\section{Алгоритм Чена—Хана}
+
+\begin{frame}{Постановка задачи}
+	Дана поверхность многогранника; все грани~— треугольники.\\
+	Выбрана вершина \(S\). Найти длины кратчайших \\
+	путей {\it (по поверхности многогранника)} от \(S\) \\
+	до каждой из остальных его вершин.
+\end{frame}
+
+
+\begin{frame}{Устройство кратчайших путей}
+   \begin{itemize}
+	\item Кратчайший путь переходит с грани на грань\\
+		не более \(n-1\) раза,\medskip
+	\item Кратчайшие пути не пересекаются, кроме как\\
+		в \(S\) или в вершине назначения,\medskip
+	\item При разгибании рёбер кратчайший путь превращается\\
+		в отрезок прямой линии.
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Дерево кратчайших путей}
+	Грани многогранника хранятся в DCEL; путь определяется\\
+	последовательностью пройденных граней.
+
+	Покажем, как пересчитываются пути при переходе\\
+	на следующую грань и как формируется двоичное дерево.
+\end{frame}
+
+
+\begin{frame}{One angle — one split}
+   \begin{lm}
+	Из двух узлов дерева, расположенных на одном полуребре,\\
+	только у одного может быть два потомка,\\
+	определяющих кратчайшие пути.
+   \end{lm}
+\end{frame}
+
+
+\begin{frame}{Эффективный алгоритм}
+	Считаем двух детей листа и проверяем, кто теперь\\
+	{\it оккупирует} вершину многогранника под ним. У того,\\
+	кто {\it (теперь)} не оккупирует, удаляем одного ребёнка.
+
+	На каждой итерации у дерева линейное количество листьев:\\
+	по одному на каждое полуребро, плюс по одному \\
+	разделяющемуся на каждое полуребро.
+
+	Глубина дерева \alert{не более \(n\).}
+\end{frame}
+
+
+\section{Теорема Александрова}
+
+\begin{frame}{Отношение эквивалентности}
+	Дан набор многоугольников. Разобьём \(\bigcup \partial P_i\) на отрезки,\\
+	пары отрезков одинаковой длины можно\\
+	склеивать между собой.
+
+	Будем рассматривать \alert{фактор-пространство,} получающееся\\
+	при таком склеивании.
+\end{frame}
+
+
+\begin{frame}{Теорема Александрова: склейки}
+	Нас интересуют склейки, которые гомеоморфны сфере и\\
+	угол в каждой точке которых не превосходит \(360^\circ\).
+\begin{figure}
+	\centering
+	\begin{subfigure}[m]{0.41\textwidth}
+		\centering
+		\includegraphics[scale=1.12]{figs_pres/alex_example_1}
+	\end{subfigure}
+~
+	\centering
+	\begin{subfigure}[m]{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.81]{figs_pres/alex_example_stefan_1}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Теорема Александрова: многогранники} \ \\
+\begin{thm}
+	Склейке, удовлетворяющей этим условиям, соответствует\\
+	(изометричен) единственный выпуклый многогранник.
+\end{thm} \medskip
+\begin{figure}
+	\centering
+	\begin{subfigure}[m]{0.38\textwidth}
+		\centering
+		\input{figs_pres/alex_example_2}
+	\end{subfigure}
+~
+	\centering
+	\begin{subfigure}[m]{0.38\textwidth}
+		\centering
+		\input{figs_pres/alex_example_stefan_2}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Спасибо за внимание!}
+	\tableofcontents
+\end{frame}
+
+\end{document}
