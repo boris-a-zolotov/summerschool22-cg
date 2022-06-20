@@ -17,7 +17,7 @@
 \RequirePackage[russian]{babel}
 
 \RequirePackage{modules/bellmanford,modules/torship,
-                modules/dcel}
+                modules/dcel,modules/dual}
 \RequirePackage{amsthm} \DeclarePairedDelimiter\lr{(}{)}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\dcsplit}{split}
@@ -25,6 +25,7 @@
 
 \newcommand{\bn}{\mathbb{N}}
 \newcommand{\br}{\mathbb{R}}
+\newcommand{\CH}{\ensuremath{\mathcal{C}\mathcal{H}}}
 
 
 %════════════════════
@@ -98,9 +99,18 @@
 %════════════════════
 
 
-\title{Вычислительная геометрия, день 1}
+\title{Вычислительная геометрия, день 2}
 \date{\today}
 \author{Борис Золотов\and Матвей Магин}
 \institute{Летняя школа МКН СПбГУ}
 
 \setcounter{tocdepth}{1}
+
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+  {\vfill}
+  {\vskip -0.1 cm}
+  {}
+  {}
+\makeatother
+  

@@ -1,0 +1,44 @@
+\definecolor{toxicBlue}{HTML}{50f5f7}
+
+\newcommand{\sAxes}{
+   \draw[->,opacity=0.45] (-3.3,0)--(3.3,0); \draw[->,opacity=0.45] (0,-3.3)--(0,3.3);
+   \foreach \t in {-3,-2,-1,1,2,3} {
+	\draw[opacity=0.45] (\t,-0.1) -- (\t,0.1) node[below]{{\scriptsize \(\t\)}}
+	     (-0.1,\t) -- (0.1,\t) node[left]{{\scriptsize \(\t\)}};
+}}
+
+
+\newcommand{\axes}{\clip (-4.3,-3.3) rectangle (12.8,3.3);
+	\sAxes \begin{scope}[xshift=8.5cm] \sAxes \end{scope}}
+
+
+\newcommand{\dualPoint}[3]{
+	\draw (#1,#2)
+	      node[fill,circle,HotPink,inner sep=0.4mm]{ }
+	      node[below,HotPink]{{\footnotesize \(p_{#3}\)}};
+   \begin{scope}[xshift=8.5cm]
+	\draw[domain=-3.2:3.2,samples=5,HotPink,variable=\x,thick]
+	     plot({\x}, {#1 * \x - #2}) node[right]{{\footnotesize \(p^*_{#3}\)}};
+   \end{scope}
+}
+
+
+\newcommand{\dualLinia}[3]{
+	\draw[domain=-3.2:3.2,samples=5,toxicBlue,variable=\x,thick]
+	     plot({\x}, {#1 * \x + #2}) node[right]{{\footnotesize \(l_{#3}\)}};
+   \begin{scope}[xshift=8.5cm]
+	\draw (#1,-#2)
+	      node[fill,circle,toxicBlue,inner sep=0.4mm]{ }
+	      node[below,toxicBlue]{{\footnotesize \(l^*_{#3}\)}};
+   \end{scope}
+}
+
+
+\newcommand{\dualFrame}[3]{
+     \begin{frame}{#1}
+     \begin{center}\vspace{-0.6cm} \begin{tikzpicture}[scale=0.82]
+     \axes #2
+     \end{tikzpicture}
+
+     #3 \end{center} \end{frame}
+}
