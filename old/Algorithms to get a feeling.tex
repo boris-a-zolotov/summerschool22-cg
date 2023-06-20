@@ -467,7 +467,7 @@
 
     \end{frame}
 
-    \subsection{Триангуляции многоугольников}
+    \section{Триангуляция и картинная галерея}
 
     \begin{frame}{Лемма о триангуляции}
 
@@ -570,64 +570,26 @@
     \end{frame}
 
     \begin{frame}{Задача о картинной галерее: иллюстрация}
-
-        \begin{center}
-        \begin{tikzpicture}[scale = 0.4]
-        \coordinate (a) at (0,0); \coordinate (b) at (-1,2); \coordinate (c) at (,5); \coordinate (d) at (,6); \coordinate (e) at (8,2); \coordinate (f) at (4,-1);
-
-        % vertexes
-        \coordinate (a) at (0,0); \coordinate (b) at (0, 2); \coordinate (c) at (-2, 2); \coordinate (d) at (-2, 7); \coordinate (e) at (1, 7); \coordinate (f) at (1,8); \coordinate (g) at (-2, 8); \coordinate (h) at (-2, 16);
-        \coordinate (i) at (1, 16); \coordinate (j) at (1, 12); \coordinate (k) at (4, 12); \coordinate (l) at (4, 13); \coordinate (l') at (2,13); \coordinate (m) at (2, 16); \coordinate (n) at (14, 16); \coordinate (o) at (14, 13); \coordinate (p) at (7, 13);
-        \coordinate (q) at (7, 12); \coordinate (r) at (14, 12); \coordinate (s) at (14, 6); \coordinate (t) at (7, 6); \coordinate (u) at (7, 4); \coordinate (v) at (14, 4); \coordinate (w) at (14, 0); \coordinate (x) at (4, 0); \coordinate (y) at (4, 5); \coordinate (z) at (3, 5); \coordinate (a') at (3, 0);
-        % gallery
-        \draw[fill4, thick] (a)--(b)--(c)--(d)--(e)--(f)--(g)--(h)--(i)--(j)--(k)--(l)--(l')--(m)--(n)--(o)--(p)--(q)--(r)--(s)--(t)--(u)--(v)--(w)--(x)--(y)--(z)--(a')--cycle;
-        % green guy
-        \draw[fill3, fill = fill3] (z) circle (0.3);
-        \coordinate (b1) at (-2, 13); \coordinate (b2) at (0, 16); \coordinate (b3) at (4.5, 16); \coordinate (b4) at (8.5, 16); \coordinate (b5) at (14, 8); \coordinate (b6) at (7, 5);
-        \draw[fill3, thick, fill=fill3, fill opacity=0.1, draw opacity = 1] (z)--(a')--(a)--(b)--(c)--(d)--(e)--(f)--(b1)--(h)--(b2)--(j)--(k)--(b3)--(b4)--(p)--(q)--(r)--(b5)--(t)--(b6)--(z)--cycle;
-        \draw[dashed, thick, fill3] (z)--(f);
-        \draw[dashed, thick, fill3] (z)--(j);
-        \draw[dashed, thick, fill3] (z)--(k);
-        \draw[dashed, thick, fill3] (z)--(p);
-        \draw[dashed, thick, fill3] (z)--(t);
-        \draw[dashed, thick, fill3] (z)--(b6);
-        % red guy
-        \draw[fill1, fill = fill1] (o) circle (0.3);
-        \draw[fill1, thick, fill=fill1, fill opacity=0.1, draw opacity = 1] (o)--(l')--(m)--(n)--cycle;
-        % purple guy
-        \draw[fill5, fill = fill5] (f) circle (0.3);
-        \coordinate (p0) at (6.5, 16); \coordinate (p1) at (11, 16); \coordinate (p2) at (12, 0); \coordinate (p3) at (9, 0); \coordinate (p4) at (1, 0);
-        \draw[fill5, thick, fill=fill5, fill opacity=0.1, draw opacity = 1] (f)--(g)--(h)--(i)--(j)--(k)--(p0)--(p1)--(p)--(q)--(r)--(s)--(t)--(u)--(p2)--(p3)--(y)--(z)--(a')--(p4)--(f)--cycle;
-        \draw[dashed, thick, fill5] (f)--(u);
-        \draw[dashed, thick, fill5] (f)--(k);
-        \draw[dashed, thick, fill5] (f)--(p);
-        \draw[dashed, thick, fill5] (f)--(y);
-        % yellow guy
-        \draw[fill2, fill = fill2] (w) circle (0.3);
-        \coordinate (y0) at (0.5, 7);
-        \draw[fill2, thick, fill=fill2, fill opacity=0.1, draw opacity = 1] (w)--(x)--(y)--(y0)--(e)--(u)--(v)--cycle;
-        \draw[dashed, thick, fill2] (w)--(u);
-        \draw[dashed, thick, fill2] (w)--(y);
-        \end{tikzpicture}
-        \end{center}
-
+\begin{center}
+  \includegraphics[height=0.84\textheight]{svg/pictGallery}
+\end{center}
     \end{frame}
 
     \begin{frame}{Задача о картинной галерее}
         
         \vspace{2mm}
         \begin{thm}[Хватал]
-
-            Для произвольного $n$-угольника досаточно $\lfloor \frac{n}{3} \rfloor$ охранников, поставленных во внутренниих точках, чтоб охранникам были видны
-            все внутренние точки $n$-угольника.
-
+		Для произвольного $n$-угольника
+		достаточно $\lfloor \frac{n}{3} \rfloor$ охранников,\\
+		поставленных во внутренних точках, чтобы охранникам\\
+		были видны все внутренние точки $n$-угольника.
         \end{thm}
 
-        \begin{proof}
-
-            По \hyperlink{trianglemm}{лемме} строим разбиение галереи на треугольники так, что полученный граф раскрашивается в 3 цвета. \\
-            Из этих цветов выбираем тот, который встречается \emph{не чаще других}, им раскрашиваем $\lfloor \frac{n}{3} \rfloor$ вершин.\\
-            Ставим охранников в вершины, окрашенные этим цветом.
-
-        \end{proof}
+        \begin{block}{Доказательство}
+		По \hyperlink{trianglemm}{лемме} строим разбиение
+		галереи на треугольники,\\
+		вершины раскрашиваются в три цвета. Из этих цветов\\
+		выбираем тот, который встречается \emph{не чаще других}.\\
+		Ставим охранников в вершины, окрашенные этим цветом.
+        \end{block}
     \end{frame}
