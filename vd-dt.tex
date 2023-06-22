@@ -44,7 +44,7 @@
                   Тогда
                   \[ F_i = \bigcap\limits_{j = 1, \ j \neq i}^{n} H(s_i, s_j)\]
 
-            \item Вершина~--- центр окружности, проходящий через 3 соседних с ней сайта.
+            \item Вершина~--- центр окружности, проходящей через 3 соседних с ней сайта.
 
             \item Клетка сайта $s_i$ неограничена $\Leftrightarrow s_i \in \mathcal{C}\mathcal{H}(S)$.
 
@@ -131,15 +131,19 @@
         Пользуясь предыдущей процедурой, работающей за $O(n)$ \\ (и $O(\log(n)$ на выпуклом), получаем наивный алгоритм:
 
         \begin{itemize}
+		\item Пересекаем каждую сторону первого многоугольника \\ с каждой стороной второго: получаем \\ \(O \lr*{m} \) точек \(I_{e_i, \epsilon_j}\) (макс. две на ребре), \\ которые будут вершинами пересечения.
+		\end{itemize} \end{frame}
 
-            \item Пересекаем каждую сторону первого многоугольника \\ с каждой стороной второго.
+\begin{frame}{Пересечение выпуклых многоугольников}
+		\begin{itemize}
+		\item Надо отсортировать \(I_{e_i, \epsilon_j}\) и вершины по аргументу относительно какой-либо точки пересечения (например, одной из них).
+		\[O \lr*{\lr*{m+n} \cdot \log \lr*{m+n}} .\]
 
-            \item Точки пересечения проверяем на принадлежность \\ каждому из многоугольников.
-
+		\item Из упорядоченного набора точек надо выкинуть не-вершины.\\
+		Для этого проверяем {\it вершины многоугольников} (\(I_{e_i, \epsilon_j}\) не надо)\\
+		на принадлежность {\it обоим} многоугольникам.
+		\[O \lr*{\lr*{m+n} \cdot \lr*{\log m + \log n}} .\]
         \end{itemize}
-
-        Время работы: $T(n, m) = O(m \cdot n \cdot \log(n \cdot m))$.
-
     \end{frame}
 
     \begin{frame}{Пересечение вып. многоугольников: O'Rourke}
@@ -153,22 +157,13 @@
         \end{itemize}
 
         \begin{center}
-        \begin{tikzpicture}[scale = 0.4]
-        % polygons
-        \coordinate (a1) at (0,0); \coordinate (b1) at (-1, 2); \coordinate (c1) at (-2, 6); \coordinate (d1) at (1, 9); \coordinate (e1) at (10, 7); \coordinate (f1) at (11, 1); \coordinate (g1) at (9, -1);
-        \draw[fill4, fill = fill4] (a1) circle (0.07); \draw[fill4, fill = fill4] (b1) circle (0.07); \draw[fill4, fill = fill4] (c1) circle (0.07); \draw[fill4, fill = fill4] (d1) circle (0.07); \draw[fill4, fill = fill4] (e1) circle (0.07); \draw[fill4, fill = fill4] (f1) circle (0.07); \draw[fill4, fill = fill4] (g1) circle (0.07);
-        \coordinate (a2) at (6, -2); \coordinate (b2) at (-2, 4); \coordinate (c2) at (-1, 8); \coordinate (d2) at (6, 9); \coordinate (e2) at (12, 3);
-        \draw[fill5, fill = fill5] (a2) circle (0.07); \draw[fill5, fill = fill5] (b2) circle (0.07); \draw[fill5, fill = fill5] (c2) circle (0.07); \draw[fill5, fill = fill5] (d2) circle (0.07); \draw[fill5, fill = fill5] (e2) circle (0.07);
-        \draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] (a1)--(b1)--(c1)--(d1)--(e1)--(f1)--(g1)--cycle;
-        \draw[fill5, fill=fill5, fill opacity=0.5, draw opacity = 0] (a2)--(b2)--(c2)--(d2)--(e2)--cycle;
-        \draw[fill4, thick, ->] (9, -1)--(10, 0);
-        \draw[fill4, thick] (9, -1)--(11, 1);
-        \draw[fill5, thick] (6, -2)--(12, 3);
-        \draw[fill5, thick, ->] (6, -2)--(9, 0.5) ;
-        \end{tikzpicture}
+        \includegraphics[width=0.42\textwidth]{картинки/пересечение_мн-в.pdf}
+        \ \ 
+        \includegraphics[width=0.42\textwidth]{картинки/крупное_пересечение_мн-в.pdf}
         \end{center}
 
     \end{frame}
+
 
     \begin{frame}{Пересечение вып. многоугольников: O'Rourke}
 
@@ -227,11 +222,12 @@
         \end{itemize}
     \end{frame}
 
+
     \begin{frame}{Пересечение вып. многоугольников: O'Rourke}
 
         \begin{itemize}
 
-            \item В результате полного обхода получаем точки пересечения. Если каждый раз будем брать ломанные, лежащие левее в порядке обохода, получим пересечение.
+            \item В результате полного обхода получаем точки пересечения. Если каждый раз будем брать ломаные, лежащие левее в порядке обохода, получим пересечение.
 
             \item Интересно, что если каждый раз будем брать лежащую правее~--- получим объединение.
 
@@ -239,6 +235,7 @@
 
         Время работы: $T(n, m) \le 2(n + m) = O(n + m)$.
     \end{frame}
+    
 
     \begin{frame}{Построение $\mathcal{V}\mathcal{D}(S)$: Пересечение полуплоскостей}
 

@@ -1,0 +1,74 @@
+\section{Проблема локализации точки}
+
+\begin{frame}{Постановка задачи}
+	Дано разбиение плоскости на области, построить структуру данных, \\
+	которая по точке будет указывать на её область.
+	\vspace{-1mm}
+
+  \begin{center} \begin{tikzpicture}[yscale=0.47,xscale=0.54]
+	\PutCoordinates
+	\DrawDcel
+	\foreach \i in {1,...,15} {\placecrd{\i}}
+  \end{tikzpicture} \end{center}
+\end{frame}
+
+
+\begin{frame}{Vertical slabs}
+	Проведём через каждую вершину вертикальную прямую, \\
+	подразбив области. Внутри полоски набор областей фиксирован.
+	\vspace{-1mm}
+
+  \begin{center} \begin{tikzpicture}[yscale=0.47,xscale=0.54]
+	\PutCoordinates
+	\DrawDcel
+	\foreach \i in {1,...,15} {\placecrd{\i}}
+	\foreach \i in {1,...,15} {\vertslab{\i}}
+  \end{tikzpicture} \end{center}
+\end{frame}
+
+
+\begin{frame}{Разбиение внутри полосок}
+	Как-нибудь {\it (sweeping line)} сохраним список отрезков, \\
+	подразбивающих каждую область по вертикали.
+	\vspace{-1mm}
+
+  \begin{center} \begin{tikzpicture}[yscale=0.47,xscale=0.54]
+	\PutCoordinates
+	\DrawDcel
+	\DrawDividing
+	\foreach \i in {1,...,15} {\placecrd{\i}}
+	\foreach \i in {1,...,15} {\vertslab{\i}}
+  \end{tikzpicture} \end{center}
+\end{frame}
+
+
+\begin{frame}{Двоичный поиск}
+	Сначала по координате находим вертикальную полоску, \\
+	потом, выясняя, выше или ниже точка отрезка,~— область.
+	\vspace{-1mm}
+
+  \begin{center} \begin{tikzpicture}[yscale=0.47,xscale=0.54]
+	\PutCoordinates
+	\DrawDcel
+	\DrawDividing
+	\foreach \i in {1,...,15} {\placecrd{\i}}
+	\foreach \i in {1,...,15} {\vertslab{\i}}
+	\DrawTree
+  \end{tikzpicture} \end{center}
+\end{frame}
+
+
+\begin{frame}{Анализ}
+	Запрос~— \(O\lr*{\log n}\). На построение требуется \(O\lr*{n^2}\) памяти \\
+	и времени. Как улучшить~— {\it persistent trees.}
+	\vspace{-1mm}
+
+  \begin{center} \begin{tikzpicture}[yscale=0.47,xscale=0.54]
+	\PutCoordinates
+	\DrawDcel
+	\DrawDividing
+	\foreach \i in {1,...,15} {\placecrd{\i}}
+	\foreach \i in {1,...,15} {\vertslab{\i}}
+	\DrawTree
+  \end{tikzpicture} \end{center}
+\end{frame}

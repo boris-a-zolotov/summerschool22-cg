@@ -1,0 +1,54 @@
+\colorlet{dcelcolor}{LightSkyBlue!75!LightGray}
+
+\newcommand{\placecrd}[1]{\draw (v#1)
+   node[circle,fill=white!80!dcelcolor,inner sep=0.36mm]{ };}
+
+\newcommand{\placetrv}[1]{\draw (d#1)
+   node[circle,fill=Indigo!55!white,inner sep=0.45mm]{ };}
+
+\newcommand{\trconnect}[4]{\draw[thick,Indigo!65!white]
+   (d#1) to[out=#3,in=#4] (d#2);}
+
+\newcommand{\vertslab}[1]{\draw[dashed,opacity=0.45,dash pattern=on 8pt off 3.2pt]
+   ($(tl)!(v#1)!(tr)$) -- ($(bl)!(v#1)!(br)$);}
+
+\newcommand{\PutCoordinates}{
+	\coordinate  (v1) at (-0.5,   5);  \coordinate  (v2) at ( 0.5,  8);
+	\coordinate  (v3) at (   0,   2);  \coordinate  (v4) at (   1,  6);
+	\coordinate  (v5) at ( 1.5, 4.5);  \coordinate  (v6) at (1.25,3.5);
+	\coordinate  (v7) at (5.25,8.25);  \coordinate  (v8) at (   4,  7);
+	\coordinate  (v9) at ( 4.5, 4.5);  \coordinate (v10) at ( 3.5,2.5);
+	\coordinate (v11) at (   6, 5.5);  \coordinate (v12) at (   7,  4);
+	\coordinate (v13) at (   5,   1);  \coordinate (v14) at (4.75,  0);
+	\coordinate (v15) at (7.25, 1.5);  \coordinate  (d7) at (   9,4.5);
+	
+	\coordinate (d1) at (2.5,7.5); \coordinate (d2) at (2.5,5.5);
+	\coordinate (d3) at (2.5,3.5); \coordinate (d4) at (2.5,1.5);
+	\coordinate (d5) at (6.5,6.5); \coordinate (d6) at (6.5,2.5);
+
+	\coordinate (tl) at (-1, 9.25);  \coordinate (tr) at (9.2, 9.25);
+	\coordinate (bl) at (-1,   -1);  \coordinate (br) at (9.2,   -1);
+	\fill[dgray,opacity=0] (bl) rectangle (tr);
+}
+
+\newcommand{\DrawDcel}{
+	\draw[dcelcolor] (v3) -- (v1) -- (v2) -- (v4) -- (v5) -- (v6) -- cycle
+	   (v1) -- (v6)	(v4) -- (v8) (v5) -- (v9) (v3) -- (v10)
+	   (v2) -- (v7) -- (v8) -- (v9) -- (v10) -- (v13) -- (v14) -- (v3)
+	   (v7) -- (v11) -- (v12) -- (v13) -- (v14) -- (v15) -- (v12)
+	   (v10) -- (v13) (v9) -- (v12);
+}
+
+\newcommand{\DrawDividing}{
+	\draw[thick, Magenta!40!OrangeRed] (1.5,8.0526) -- (3.5,8.1579)
+	   (1.5,6.1667) -- (3.5,6.8333) (1.5,4.5) -- (3.5,4.5)
+	   (1.5,2.2143) -- (3.5,2.5) (1.5,1.3684) -- (3.5,0.5263);
+}
+
+\newcommand{\DrawTree}{
+	\trconnect{1}{5}{-9.036}{-199.036} \trconnect{3}{6}{-9.036}{-199.036}
+	\trconnect{2}{5}{ 9.036}{ 199.036} \trconnect{4}{6}{ 9.036}{ 199.036}
+	\trconnect{5}{7}{-33.66}{-223.66}  \trconnect{6}{7}{ 33.66}{ 223.66}
+
+	\foreach \i in {1,2,3,4,7} {\placetrv{\i}};
+}
