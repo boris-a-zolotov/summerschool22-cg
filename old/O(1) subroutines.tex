@@ -1,38 +1,32 @@
 \section{Задачи, выполнимые за $O(1)$}
+
 \begin{frame}{Некоторые договоренности}
-
-	Для удобства мы будем считать, что точки \alert{в общем положении}
-
+	Для удобства мы будем считать, что точки {\itshape в общем положении:}
 	\begin{itemize}
-		\item Никакие 3 из них не лежат на одной прямой.
-
-		\item Никакие 4 из них не лежат на одной окружности.
-
-		\item У них нет общих $x$ и $y$ координат.
+		\item никакие 3 из них не лежат на одной прямой,
+		\item никакие 4 из них не лежат на одной окружности,
+		\item у них нет общих $x$ и $y$ координат.
 	\end{itemize}
-
-	В совокупности это верно почти всегда.\\
-
+	В совокупности это верно {\itshape почти всегда.}
 \end{frame}
+
 
 \subsection{Применения аналитической геометрии}
 
 \begin{frame}{Задание фигур уравнениями}
+  При работе с геом. объектами удобно задавать их уравнениями
+  \begin{itemize}
+    \item Прямая:
+      \[\ell\colon ax + by + c = 0 \text{\ \ или\ \ } \ell\colon y = kx + b.\]
 
-	При работе с геом. объектами удобно задавать их уравнениями
+    \item Прямая через точки $A(x_1, y_1)$, $B(x_2, y_2)$:
+      \[a = y_2 - y_1,\ \ b = x_1 - x_2,\ \ c = -(ax_1 + by_1).\]
 
-		\begin{itemize}
-			\item Прямая:\\
-
-			$\ell\colon ax + by + c = 0$ или $\ell\colon y = kx + b$.\\
-			Прямая через точки $A(x_1, y_1), B(x_2, y_2)$:
-			\[ \ell\colon \begin{cases} ax_1 + by_1 + c = 0 \\ ax_2 + by_2 + c = 0 \end{cases}\]
-			\[ a = y_2 - y_1, \ b = x_1 - x_2, \ c = -(ax_1 + by_1)\]
-
-			\item Окружность:
-			\[ (x - x_0)^2 + (y - y_0)^2 = R^2, \text{ где } (x_0, y_0) \text{ — центр, а } R \text{ — радиус} \]
-		\end{itemize}
-
+    \item Окружность:
+      \[(x - x_0)^2 + (y - y_0)^2 = R^2 \text{:\ \ }
+        (x_0, y_0) \text{ — центр,\ \ }
+        R \text{ — радиус.}\]
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Расстояние от точки до прямой}
@@ -41,11 +35,11 @@
 	\[ d(M, \ell) = \frac{\left| ax_0 + by_0 + c \right|}{\sqrt{a^2 + b^2}} \]
 
 	\begin{center}
-	\begin{tikzpicture}[scale = 0.64]
+	\begin{tikzpicture}[scale = 0.58]
 	\coordinate[label=left:$M$] (M) at (3,5);
 	\draw[fill4, fill = fill4] (3,5) circle (0.07);
 	\draw[fill4, fill = fill4] (4,1) circle (0.07);
-	\draw[fill4, thick] (0, 0)--(8, 2) node[left, right = 0.05]{$\ell$};
+	\draw[fill4, thick] (0, 0)--(8, 2) node[white, left, right = 0.05]{$\ell$};
 	\draw[fill4, thick] (3, 5)--(4, 1);
 	\end{tikzpicture}
 	\end{center}
@@ -78,93 +72,68 @@
 
 \end{frame}
 
+
 \begin{frame}{Центр описанной окружности}
+  \begin{enumerate}
+    \item Cер.\:перп-ы к $[ac]$ и $[bc]$: \begin{itemize}
+      \item произведение угл.\:коэф-тов перп. прямых — \(-1\),
+      \item середина отрезка — полусумма координат.
+    \end{itemize} \medskip
+    
+    \item Пересечение прямых~— решение линейной системы.
+  \end{enumerate} \bigskip
 
-	\begin{enumerate}
-
-	    \item Ищем серединные перепендикуляры к $[ac]$ и $[bc]$,\\ как прямые $p_1$ и $p_2$.\\
-
-			  Если $\ell_1\colon y = a_1x + b_1$, а $\ell_2\colon y = a_2 x + b_2$, то $\ell_1 \perp \ell_2 \Leftrightarrow a_1 \cdot a_2 = -1$.\\
-			  Находим серединный перпендикуляр к стороне как прямую, проходящую через середину стороны и перпендикулярную ей.
-
-		\item Ищем их пересечение, как решение линейной системы: \\
-			$p_1\colon y = \alpha_1 x + \beta, \ p_2\colon y = \alpha_2 x + \beta_2$.\\
-		 	\vspace{1mm}
-			$\begin{cases} y = \alpha_1 x + \beta_1 \\ y = \alpha_2 x + \beta_2 \end{cases}$
-
-	\end{enumerate}
-
+  Другие замечательные точки треугольника находятся аналогично.
 \end{frame}
 
-\begin{frame}{Смежные задачи}
-
-	Ясно, что очень большое количество задач можно решить совершенно аналогичным образом, например, задачи
-	нахождения
-
-	\begin{itemize}
-
-		\item инцентра.
-
-		\item ортоцентра.
-
-		\item  барицентра.
-	\end{itemize}
-\end{frame}
 
 \subsection{Ориентация и косое произведение}
 
 \begin{frame}{Угол между векторами}
 
 	Рассмотрим вектора $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$.
-	\[ \langle \vec{a}, \vec{b} \rangle = x_1 x_2 + y_1 y_2 = |\vec{a}||\vec{b}| \cos{\angle{(\vec{a}, \vec{b})}} = \sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2} \cos{\angle(\vec{a}, \vec{b})}\]
+	\[ \langle \vec{a}, \vec{b} \rangle = x_1 x_2 + y_1 y_2 = |\vec{a}||\vec{b}| \cos{\angle{(\vec{a}, \vec{b})}} = \sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2} \cos{\angle(\vec{a}, \vec{b})}.\]
 	Значит, мы знаем, как найти угол между векторами $\vec{a}$ и $\vec{b}$:
 	\[ \angle(\vec{a}, \vec{b}) = \arccos\lr*{\frac{x_1 y_1 + x_2 y_2}{\sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2}}} \]
 
 \end{frame}
 
 \begin{frame}{Косое произведение}
+  \begin{defn}
+    {\itshape Косое произведение} векторов $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$:
+      \[ \vec{a} \wedge \vec{b} =  \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix}
+        = x_1 y_2 - x_2 y_1.\]
+  \end{defn}
 
-	\begin{defn}
-
-		\alert{Косым произведением} векторов $\vec{a} = (x_1, y_1)$ и $\vec{b} = (x_2, y_2)$ на плоскости будем называть
-		\[ \vec{a} \wedge \vec{b} =  \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2  \end{vmatrix} = x_1 y_2 - x_2 y_1\]
-
-	\end{defn}
-
-	Покажем, что $\vec{a} \wedge \vec{b} = |\vec{a}| |\vec{b}| \sin \lr*{\angle \lr*{\vec{a},\vec{b}}}$, где $\angle\lr*{\vec{a}, \vec{b}}$~--- угол
-	вращения против часовой стрелки от $\vec{a}$ к $\vec{b}$.
-
+  \begin{thm}
+    \[\vec{a} \wedge \vec{b} = |\vec{a}| |\vec{b}| \sin \lr*{\angle \lr*{\vec{a},\vec{b}}},\]
+    $\angle\lr*{\vec{a}, \vec{b}}$~—
+    угол вращения против часовой стрелки от $\vec{a}$ к $\vec{b}$.
+  \end{thm}  \vspace{-1cm}
 \end{frame}
 
-\begin{frame}{Эквивалентность определений}
-
-	В самом деле, $ \cos \lr*{\angle \lr*{a,b}} = x_1 x_2 + y_1 y_2 / (\sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2})$.
-	\begin{multline*} \sin \lr*{\angle \lr*{\vec{a},\vec{b}}} = \sqrt{1 - \cos^2 \lr*{\angle \lr*{\vec{a},\vec{b}}}}) = \sqrt{1 - \frac{(x_1 x_2 + y_1 y_2)^2}{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} =\\= \sqrt{\frac{x_1^2 x_2^2 + x_1^2 y_2^2 + y_1^2 x_2^2 + y_1^2 y_2^2 - x_1^2 x_2^2 - y_1^2 y_2^2 - 2 x_1 x_2 y_1 y_2 }{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}} \\= \frac{x_1 y_2 - y_1 x_2}{\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}} = \frac{\vec{a} \wedge \vec{b}}{|\vec{a}||\vec{b}|} \end{multline*}
-
-\end{frame}
 
 \begin{frame}{Площадь треугольника}
+\begin{thm}
+  $\vec{a} \wedge \vec{b} = 2 S_{\triangle{ABD}}$, где площадь {\itshape ориентированная.}
 
-	Теперь ясно, что $\vec{a} \wedge \vec{b} = 2 S_{\triangle{ABD}}$, где площадь \alert{ориентированная.}
-
-	\begin{center}
-	\begin{tikzpicture}
+	\begin{center} \begin{tikzpicture}
 	\coordinate[label=left:$A$] (A) at (0,0); \coordinate[label=left:$B$] (B) at (1,3); \coordinate[label=right:$C$] (C) at (4,3); \coordinate[label=right:$D$] (D) at (3,0);
 	\draw[->, fill4, thick] (0,0)--(1,3) node[midway, left = 0.1]{$\vec{a}$};
 	\draw[->, fill4, thick] (0,0)--(3,0) node[midway, below = 0.1]{$\vec{b}$};
 	\draw[fill4, thick] (1,3)--(3,0);
 	\draw[fill4, fill=fill4, fill opacity=0.5, draw opacity = 0] plot coordinates{(0,0) (1,3) (3, 0)}--cycle;
 	\draw (A)--(B)--(C)--(D)--cycle;
-	\end{tikzpicture}
-
-	\end{center}
-
+	\end{tikzpicture} \end{center}
+\end{thm}
 \end{frame}
+
+
 \begin{frame}{Ориентация}
 
 	\begin{defn}
 
-		Будем говорить, что тройка точек $(a, b, c)$ \alert{положительно ориентирована} и писать $\sign(a, b, c) > 0$, если поворот вектора
+		Будем говорить, что тройка точек $(a, b, c)$ {\itshape положительно ориентирована} и писать $\sign(a, b, c) > 0$, если поворот вектора
 		$\overrightarrow{ba}$ к вектору $\overrightarrow{bc}$ осуществляется против часовой стрелки.
 
 	\end{defn}
@@ -203,53 +172,39 @@
 \subsection{Пересечение отрезков}
 
 \begin{frame}{Пересечение отрезков}
+  \begin{task}
+    Дана четверка точек $a, b, c, d$. Требуется определить, \\
+    пересекаются ли отрезки $[ab]$ и $[cd]$.
+  \end{task}
 
-	\begin{task}
-
-		Дана четверка точек $a, b, c, d$. Требуется определить, пересекаются ли отрезки $[ab]$ и $[cd]$.
-
-	\end{task}
-
-	Заметим, что отрезки $[ab]$ и $[cd]$ пересекаются т. и т. т., когда
-
-	\begin{itemize}
-		\item Концы $a, b$ лежат по разные стороны от прямой $(cd)$.
-
-		\item Концы $c, d$ лежат по разные стороны от прямой $(ab)$
-	\end{itemize}
-
-	Заметим, что точки $a$ и $b$  лежат по разные стороны от прямой $(cd)$ т. и т.т., когда
-	различны $\sign(a, c, d)$ и $\sign(b, c, d)$.
-
+\begin{tabular}{ll}
+  \makecell[l]{
+    Отрезки $[ab]$ и $[cd]$ пересекаются \\ т. и т. т., когда: \\
+    \ \ • концы $a, b$ лежат по разные стороны \\ \ \ от прямой $(cd)$, \\
+    \ \ • концы $c, d$ лежат по разные стороны \\ \ \ от прямой $(ab)$. \\
+    Это четыре проверки знаков.
+  } &
+  \makecell[l]{\hspace{1cm}
+    \begin{tikzpicture}[scale=0.89]
+      \coordinate[label=left:$c$] (c) at (0,0);
+      \coordinate[label=left:$d$] (d) at (3,3);
+      \coordinate[label=right:$a$] (a) at (0,4);
+      \coordinate[label=right:$b$] (b) at (3,1);
+      %
+      \draw[thick,fill5] (b)--(c)--(a);
+      \fill[fill4] (c) circle [radius=0.7mm]; \fill[fill4] (d) circle [radius=0.7mm];
+      \fill[fill4] (a) circle [radius=0.7mm]; \fill[fill4] (b) circle [radius=0.7mm];
+      \draw[thick,fill4] (a)--(b) (c)--(d);
+      %
+      \draw pic[draw,->,thick,fill1,angle radius=0.8cm] {angle=b--c--d};
+      \draw pic[draw,<-,thick,fill1,angle radius=0.8cm] {angle=d--c--a};
+    \end{tikzpicture}
+  }
+\end{tabular}  \vspace{-0.8cm}
 \end{frame}
 
-\begin{frame}{Пересечение отрезков}
-
-	\begin{center}
-	\begin{tikzpicture}
-	\begin{scope}
-	\coordinate[label= left:$c$] (c) at (0,0); \coordinate[label= left :$d$] (d) at (3,3); \coordinate[label=right:$a$] (a) at (0,4); \coordinate[label=right:$b$] (b) at (3,1);
-	\draw[fill4, fill = fill4] (0,0) circle (0.07);\draw[fill5, fill = fill5] (3,3) circle (0.07); \draw[fill4, fill = fill4] (0,4) circle (0.07); \draw[fill4, fill = fill4] (3,1) circle (0.07);
-	\draw[fill4, thick] (a)--(b);
-	\draw[fill4, thick] (b)--(c);
-	\draw[fill5, thick] (c)--(d);
-	\draw pic[draw, ->,  thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=b--c--d};
-	\end{scope}
-	\begin{scope}[xshift=5cm]
-	\coordinate[label= left:$c$] (c) at (0,0); \coordinate[label= left :$d$] (d) at (3,3); \coordinate[label=right:$a$] (a) at (0,4); \coordinate[label=right:$b$] (b) at (3,1);
-	\draw[fill4, fill = fill4] (0,0) circle (0.07);\draw[fill4, fill = fill4] (3,3) circle (0.07); \draw[fill5, fill = fill5] (0,4) circle (0.07); \draw[fill4, fill = fill4] (3,1) circle (0.07);
-	\draw[fill5, thick] (a)--(b);
-	\draw[fill4, thick] (c)--(d);
-	\draw[fill4, thick] (b)--(c);
-	\draw pic[draw, ->, thick, fill1, angle radius=1cm, shift={(6mm,1mm)}] {angle=a--b--c};
-	\end{scope}
-	\end{tikzpicture}
-	\end{center}
-
-\end{frame}
 
 \begin{frame}{Пересечение отрезков}
-
 	\begin{center}
 	\begin{algorithmic}
 	\State \underline{\textsc{Intersect}(a, b, c, d):}
@@ -263,6 +218,5 @@
     	\EndIf
 	\EndIf
 	\end{algorithmic}
-	\end{center}
-
+	\end{center}  \vspace{-0.8cm}
 \end{frame}
