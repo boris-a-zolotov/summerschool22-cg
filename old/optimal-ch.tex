@@ -1,6 +1,6 @@
-    \section{Algorithms to get a feeling}
+\section{Выпуклая оболочка за оптимальное время}
 
-    \subsection{Выпуклая оболочка}
+\subsection{Постановка задачи}
 
     \begin{frame}{Выпуклое множество}
         \vspace{2mm}
@@ -52,32 +52,51 @@
 
     \end{frame}
 
-    \begin{frame}{Вычисление выпуклой оболочки}
 
-        \begin{task}
-		Дано множество $S \subset \mathbb{R}^2$, $|S| = n$. Требуется найти \\
-		координаты вершин его выпуклой оболочки $\mathcal{C}\mathcal{H}(S)$ \\
-		в порядке против часовой стрелки.
-        \end{task}
+\begin{frame}{Задача о выпуклой оболочке}
+\begin{thm}
+  Выпуклая оболочка конечного множества \(S\)~— многоугольник \\
+  с вершинами в точках этого множества.
+\end{thm} \bigskip
 
-    \end{frame}
+\begin{task}
+  Дано множество $S \subset \mathbb{R}^2$, $|S| = n$. Требуется найти \\
+  координаты вершин его выпуклой оболочки $\mathcal{C}\mathcal{H}(S)$ \\
+  в порядке против часовой стрелки.
+\end{task}
+\end{frame}
 
-    \begin{frame}{Вычисление выпуклой оболочки}
 
-        Есть много алгоритмов вычисления выпуклой оболочки на плоскости.
-        Большиство из них напоминают алгоритмы сортировок, к примеру
+\begin{frame}{Время вычисления выпуклой оболочки}
+\begin{thm}
+  В терминах размера входа, нижняя оценка времени \\
+  вычисления выпуклой оболочки \(n\) точек~— \(\Omega (n \log n)\).
+\end{thm}
 
-        \begin{itemize}
-            \item Алгоритм Джарвиса~--- Selection Sort.
-            \item Quick Hull~--- Quick Sort.
-            \item Алгоритм <<Разделяй и властвуй>>~--- Merge Sort.
-        \end{itemize}
+Алгоритм Джарвиса, время работы \(O (nh)\):
+\begin{center} \begin{tikzpicture}[scale=0.52]
+  \coordinate (a) at (-0.5,3.5);  \coordinate (b) at (1,3);
+  \coordinate (c) at (2.85,5);  \coordinate (d) at (3,2.25);
+  \coordinate (e) at (5,2);  \coordinate (f) at (3.75,0);
+  \coordinate (x) at (0.5,-0.5);
 
-    \end{frame}
+  \fill[fill4,opacity=0.4] (c) -- (a) -- (x) -- cycle;
+  \foreach \s/\t in {a/b, b/c, c/d, d/e, e/f}
+    {\draw pic[draw,<-,thick,fill1,angle radius=1.2cm] {angle=\t --x--\s };}
+
+  \foreach \c in {(a), (b), (c), (d), (e), (f), (x)}
+    {\draw[fill5,thick] (x) -- \c;  \fill[fill4] \c circle[radius=0.75mm];}
+  
+  \draw[fill4,thick] (c) -- (a) -- (x);
+\end{tikzpicture} \end{center} \vspace{-1cm}
+\end{frame}
+
+
+\subsection{Divide-and-conquer}
 
     \begin{frame}{Алгоритмы <<Разделяй и властвуй>>}
 
-        Из представленных выше мы рассмотрим алгоритм {\it Divide-and-conquer}. \\
+        Рассмотрим алгоритм {\it Divide-and-conquer}. \\
 
         Все алгоритмы <<Divide-and-Conquer>> имеют одну идею:
 
@@ -329,6 +348,8 @@
         \end{center}
 
     \end{frame}
+    
+\subsection{Касательная}
 
     \begin{frame}{Касательная к выпуклому многоугольнику: алгоритм}
 
@@ -455,15 +476,56 @@
 
         Каждый следующий запрос~--- $O(1)$ проверок ориентации.
         Всего запросов~--- $O(\log(n))$, а значит, время работы~--- $O(\log(n))$.
-        
-        \vspace{5mm}
-        
-        \begin{block}{Упражнение.}
-
-            Придумайте алгоритм выпуклой оболочки, использующий алгоритм построения касательной и алгоритм
-            $D\&C$. Время работы алгоритма должно составлять $O(n\log(h))$, где $h$~--- количество вершин  в выпуклой оболочке.
-
-        \end{block}
 
     \end{frame}
+
+
+\subsection{Сложность выпуклой оболочки случайных точек}
+
+\begin{frame}{Сложность выпуклой оболочки случайных точек}
+\begin{thm}
+  \(\mathbb E\) количества вершин \(\mathcal{CH}\) множества из \(n\) точек, \\
+  взятых равномерно случайно в многограннике в \(\mathbb R^d\), \\
+  равно \(O (\log n)^{d-1}\).
+\end{thm} \vspace{-3mm}
+
+Доказательство для точек в квадрате на плоскости: \\
+\(\sum\, \mathbb P [k\text{-ая точка выше всех предыдущих}]\). \medskip
+
+\begin{thm}
+  \(\mathbb E\) количества вершин \(\mathcal{CH}\) множества из \(n\) точек, \\
+  взятых равномерно случайно в единичной сфере в \(\mathbb R^d\), \\
+  равно \(O (n)^{\frac{d-1}{d+1}}\).
+\end{thm} \vspace{-9mm}
+\end{frame}
+
+
+\subsection{Алгоритм Чана. Squaring search}
+
+\begin{frame}{Алгоритм для выпуклой оболочки ещё лучше}
+\begin{tabular}{ll}
+\makecell[l]{
+  • Разобьём точки на группы по \(m\) штук, \\
+  для каждой группы вычислим \(\mathcal{CH}\) за \(n \log n\); \medskip \\
+  • Сделаем \(m\) шагов алгоритма Джарвиса, \\
+  находя касательную к каждой из групп. \\
+  Возможно, при этом \(\mathcal{CH}\) не построится.
+} &
+\makecell[l]{\includegraphics[width=4.4cm]{svg/chan}}
+\end{tabular}
+
+\[\frac n m \cdot m \log m\ +\ m \cdot \frac n m \cdot \log m\ =\ n \cdot \log m.\]
+\end{frame}
+
+\begin{frame}{Squaring search}
+\begin{itemize}
+  \item Возьмём последовательность \(m = 1, 2, 2^2, 2^4, 2^8, \ldots\);
+  \item Соответственно, \(\log m = 0, 1, 2, 3, 4, 8, \ldots\);
+  \item Следующее \(m\) равно квадрату предыдущего;
+  \item Сумма логарифмов всех \(m\) — \(O(\text{логарифма последнего})\);
+  \item Когда мы остановимся, \(h \le m \le h^2\), \(\log m = \log h\);
+  \item Общее время работы — \(O (n \log h)\);
+  \item Для случайных точек в многоугольнике будет \(O (n \cdot \log \log n)\).
+\end{itemize}
+\end{frame}
 
