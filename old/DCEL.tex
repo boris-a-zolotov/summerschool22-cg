@@ -66,10 +66,10 @@
 	             (v4)--(v1) \ninjanode{0.65}{m2};
    }
 	\dconn12 \dconn23 \dconn34 \dconn41
-	\draw[FireBrick,<->] (s1) to[out=90,in=150] (s2);
-	\draw[FireBrick,<->] (m1) to[out=255,in=50] (2.5,1.5);
-	\draw[FireBrick,<->] (vn) to[out=-150,in=-60] (vn4);
-	\draw[rotate=-7.1,FireBrick,<->] (m2) .. controls ++(2,1.2) and ++(-2,1.2) .. (m2);
+	\draw[FireBrick!60!white,<->] (s1) to[out=90,in=150] (s2);
+	\draw[FireBrick!60!white,<->] (m1) to[out=255,in=50] (2.5,1.5);
+	\draw[FireBrick!60!white,<->] (vn) to[out=-150,in=-60] (vn4);
+	\draw[rotate=-7.1,FireBrick!60!white,<->] (m2) .. controls ++(2,1.2) and ++(-2,1.2) .. (m2);
 \end{tikzpicture} \end{center}
 \end{frame}
 
@@ -84,9 +84,9 @@
 	   node[pos=0.78,inner sep=0.2mm](ns1){ } (fn2);
 	\draw[fill3,->] (fn2) to[bend right] node[pos=0.27,inner sep=0.2mm](ns2){ }
 	   node[pos=0.45,inner sep=0.2mm](ve2){ } (fn3);
-	\draw[FireBrick,<->] (vn2) to[bend left] (ve1);
-	\draw[FireBrick,<->] (vn2) to[bend right] (ve2);
-	\draw[FireBrick,<->] (ns1) to[bend left] (ns2);
+	\draw[FireBrick!60!white,<->] (vn2) to[bend left] (ve1);
+	\draw[FireBrick!60!white,<->] (vn2) to[bend right] (ve2);
+	\draw[FireBrick!60!white,<->] (ns1) to[bend left] (ns2);
 \end{tikzpicture} \end{center} \vspace{-3mm}
 Чтобы соединять указателями полурёбра, будем хранить,\\
 какие вершины мы уже обслужили.

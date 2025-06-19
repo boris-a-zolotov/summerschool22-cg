@@ -116,18 +116,18 @@
 \begin{frame}{Сложность}
     $O\lr*{n \cdot \log n}$ --- заполнение очереди
 
-    Пока $Q \neq \varnothing$ ($\leq 2n+I$ раз) \\
+    Пока $Q \neq \varnothing$ ($\leq 2n+K$ раз) \\
     \qquad изменение очереди~— $O(\log n)$ \\
     \qquad изменение дерева статуса~—
         $O\lr*{\log n \cdot \left|U(p) \cup L(p) \cup C(p)\right|}$
         \vspace{-6mm}
 
-   \[ \sum\limits_{p}|U(p) \cup L(p) \cup C(p)|\ \ =\ \ O(2n+I)\ \ =\ \ O(n+I) \]
+   \[ \sum\limits_{p}|U(p) \cup L(p) \cup C(p)|\ \ =\ \ O(2n+K)\ \ =\ \ O(n+K) \]
    \vspace{-16mm}
 
   \begin{multline*}
-     O\lr*{n \cdot \log n} + O\lr*{\lr*{2n+I} \cdot \log n} +
+     O\lr*{n \cdot \log n} + O\lr*{\lr*{2n+K} \cdot \log n} +
        O\lr*{\log n \cdot \sum\limits_{p}|U(p) \cup L(p) \cup C(p)|} = \\
-       = O\lr*{\lr*{n+I}\cdot \log n}
+       = O\lr*{\lr*{n+K}\cdot \log n}
   \end{multline*}
 \end{frame}
